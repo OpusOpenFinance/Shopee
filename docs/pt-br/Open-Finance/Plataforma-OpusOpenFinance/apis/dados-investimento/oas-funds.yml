@@ -18,15 +18,13 @@ info:
     Para o identificador do investimento (investmentId) deve ser adotado o seguinte comportamento:
 
     - Após 12 meses sem movimentações e com quantidade de ativos zerada, o resourceId correspondente ao investmentId em questão deve passar ao status UNAVAILABLE (considerando consentimento válido);
-
-    - Nas situações em que o cliente compre novamente o ativo após um período de 12 meses sem movimentação e com quantidade de ativos zerada, o mesmo identificador (investmentId) deve ser utilizado. Especificamente para tais produtos, o status do recurso na resources deve passar de UNAVAILABLE para AVAILABLE.
-  version: 2.0.0-base1.0.2
+  version: 2.1.0-base1.0.2
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
 tags:
   - name: Product List
-    description: Obtém a lista de operações de Fundos de Investimento mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento.
+    description: Obtém a lista de operações de Fundos de Investimento mantidas pelo cliente na instituição transmissora.
   - name: Product Identification
     description: Obtém os dados da operação de Fundos de Investimento identificada por investmentId.
   - name: Balances
@@ -36,6 +34,48 @@ tags:
   - name: Transactions Current
     description: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
 paths:
+  /discovery:
+    post:
+      tags:
+        - Product List
+      summary: Obtém uma lista de recursos representando todos os investimentos do tipo Fundos de Investimento realizados pelo cliente.
+      operationId: discoverFunds
+      description: Método para obter a lista de investimentos do tipo Fundos de Investimento realizados pelo cliente na instituição transmissora.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMeta'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFundDiscovery'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
   /investments:
     post:
       tags:
@@ -654,7 +694,6 @@ components:
           type: object
           description: |
             Valor líquido da movimentação posterior à dedução de impostos (IOF e IR) e taxa de saída.   
-            
             [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
           required:
             - amount
@@ -872,23 +911,6 @@ components:
               maxLength: 3
               example: BRL
       additionalProperties: false
-    MetaOnlyRequestDateTimeAndHasMoreRecords:
-      type: object
-      description: Meta informação referente a API requisitada.
-      required:
-        - requestDateTime
-        - hasMoreRecords
-      properties:
-        requestDateTime:
-          description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
-          type: string
-          maxLength: 20
-          format: date-time
-          example: '2021-05-21T08:30:00Z'
-        hasMoreRecords:
-          type: boolean
-          description: Indica se tem mais registros a serem retornados (true) ou não (false).
-          example: true
     FundsMeta:
       type: object
       description: Meta informações referente a API requisitada.
@@ -1186,8 +1208,92 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
+    LegacyId:
+      description: |
+        Array de chave e valor com a chave de identificação do recurso no sistema de origem (legado), permitindo chaves compostas
+      type: array
+      items:
+        type: object
+        required:
+          - key
+          - value
+        properties:
+          key:
+            description: |
+              Nome do campo do identificador no sistema de origem
+            type: string
+            example: internalResourceId
+          value:
+            description: |
+              Valor do campo do identificador no sistema de origem
+            type: string
+            example: '1234'
+        additionalProperties: false
+      minItems: 1
+      maxItems: 10
+    ToTransactionConversionDate:
+      description: |
+        Data final de filtragem.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionConversionDate seja informado.
+        Caso não seja informado, deve ser assumido o dia atual.
+      type: string
+      maxLength: 10
+      format: date
+      example: '2021-05-21'
+    FromTransactionConversionDate:
+      description: |
+        Data inicial de filtragem.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionConversionDate seja informado.
+        Caso não seja informado, deve ser assumido o dia atual.
+      type: string
+      maxLength: 10
+      format: date
+      example: '2021-05-21'
+    ToTransactionConversionDateCurrent:
+      description: |
+        Data final de filtragem.
+        O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionConversionDate seja informado.
+        Caso não seja informado, deve ser assumido o dia atual.
+      type: string
+      maxLength: 10
+      format: date
+      example: '2021-05-21'
+    FromTransactionConversionDateCurrent:
+      description: |
+        Data inicial de filtragem.
+        O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionConversionDate seja informado.
+        Caso não seja informado, deve ser assumido o dia atual.
+      type: string
+      maxLength: 10
+      format: date
+      example: '2021-05-21'
+    PaginationKey:
+      description: |
+        Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.
+      type: string
+      maxLength: 2048
+      pattern: '[\w\W\s]*'
+    Page:
+      description: |
+        Número da página que está sendo requisitada (o valor da primeira página é 1).
+      type: integer
+      default: 1
+      minimum: 1
+      maximum: 2147483647
+      format: int32
+    PageSize:
+      description: |
+        Quantidade total de registros por páginas.
+      type: integer
+      default: 25
+      minimum: 1
+      format: int32
+      maximum: 1000
     ConsentDataSharing:
-      description: Consentimento de compartilhamento de dados
+      description: |
+        Consentimento de compartilhamento de dados
       type: object
       required:
         - brandId
@@ -1200,8 +1306,8 @@ components:
         authExtraData:
           type: array
           description: |
-            Array de chave e valor com dados adicionais vindos do autorizador. Esses
-            dados podem ser utilizados como filtros de recursos.
+            Array de chave e valor com dados adicionais vindos do autorizador.
+            Esses dados podem ser utilizados como filtros de recursos.
           items:
             type: object
             required:
@@ -1218,8 +1324,7 @@ components:
           deprecated: true
           type: array
           description: |
-            [Obsoleto] Array de chave e valor com os dados de identificação
-            referente ao dono do consentimento.
+            [Obsoleto] Array de chave e valor com os dados de identificação referente ao dono do consentimento.
           items:
             type: object
             required:
@@ -1234,49 +1339,51 @@ components:
                 example: '0011'
         brandId:
           type: string
-          description: Identificador da marca reportada pelo participante do Open Finance
+          description: |
+            Identificador da marca reportada pelo participante do Open Finance
           example: cbanco
           minLength: 1
           maxLength: 50
         creationDateTime:
           description: |
-            Data e hora em que o consentimento foi criado. Uma string com data e
-            hora conforme especificação RFC-3339, sempre com a utilização de
-            timezone UTC (UTC time format).
+            Data e hora em que o consentimento foi criado.
+            Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC (UTC time format).
           type: string
-          pattern: |
-            ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$ '
           example: '2021-05-21T08:30:00Z'
           maxLength: 20
         tpp:
           type: object
-          description: Detalhes do TPP (Third Party Provider) que solicitou o consentimento
+          description: |
+            Detalhes do TPP (Third Party Provider) que solicitou o consentimento
           additionalProperties: false
           required:
             - name
           properties:
             name:
               type: string
-              description: Nome do TPP que solicitou o consentimento
+              description: |
+                Nome do TPP que solicitou o consentimento
               example: GuiaBolsa
               maxLength: 100
         externalId:
           type: string
-          description: Identificador do consentimento utilizado fora da plataforma Opus Open Finance
+          description: |
+            Identificador do consentimento utilizado fora da plataforma Opus Open Finance
           example: urn:oob-bank:2f710909-4ccd-4998-8679-3d8de00e5ccf
           maxLength: 100
         loggedUser:
           type: object
           description: |
-            Usuário (pessoa natural) que encontra-se logado na instituição
-            Transmissora de Dados.
+            Usuário (pessoa natural) que encontra-se logado na instituição Transmissora de Dados.
           additionalProperties: false
           required:
             - document
           properties:
             document:
               type: object
-              description: Documento de identificação oficial do usuário.
+              description: |
+                Documento de identificação oficial do usuário.
               additionalProperties: false
               required:
                 - identification
@@ -1285,30 +1392,30 @@ components:
                 identification:
                   type: string
                   maxLength: 11
-                  description: Número do documento de identificação oficial do usuário.
+                  description: |
+                    Número do documento de identificação oficial do usuário.
                   example: '11111111111'
                   pattern: ^\d{11}$
                 rel:
                   type: string
                   maxLength: 3
-                  description: Tipo do documento de identificação oficial do usuário.
+                  description: |
+                    Tipo do documento de identificação oficial do usuário.
                   example: CPF
                   pattern: ^[A-Z]{3}$
         businessDocumentType:
           type: object
           description: |
-            Usuário (pessoa jurídica) que encontra-se logado na instituição
-            Transmissora de Dados.
-
-            [Restrição] Preenchimento obrigatório se usuário logado na instituição
-            Transmissora de Dados for um CNPJ (pessoa jurídica).
+            Usuário (pessoa jurídica) que encontra-se logado na instituição Transmissora de Dados.
+            [Restrição] Preenchimento obrigatório se usuário logado na instituição Transmissora de Dados for um CNPJ (pessoa jurídica).
           additionalProperties: false
           required:
             - document
           properties:
             document:
               type: object
-              description: Documento de identificação oficial do titular pessoa jurídica.
+              description: |
+                Documento de identificação oficial do titular pessoa jurídica.
               additionalProperties: false
               required:
                 - identification
@@ -1318,16 +1425,14 @@ components:
                   type: string
                   maxLength: 14
                   description: |
-                    Número do documento de identificação oficial do titular pessoa
-                    jurídica.
+                    Número do documento de identificação oficial do titular pessoa jurídica.
                   example: '11111111111111'
                   pattern: ^\d{14}$
                 rel:
                   type: string
                   maxLength: 4
                   description: |
-                    Tipo do documento de identificação oficial do titular pessoa
-                    jurídica.
+                    Tipo do documento de identificação oficial do titular pessoa jurídica.
                   example: CNPJ
                   pattern: ^[A-Z]{4}$
         resources:
@@ -1336,13 +1441,15 @@ components:
           type: array
           items:
             type: object
-            description: Recursos selecionados pelo cliente
+            description: |
+              Recursos selecionados pelo cliente
             required:
               - type
               - resourceLegacyId
             properties:
               type:
-                description: Tipo do recurso
+                description: |
+                  Tipo do recurso
                 type: string
                 enum:
                   - ACCOUNT
@@ -1355,7 +1462,7 @@ components:
                   - BANK_FIXED_INCOME
                   - CREDIT_FIXED_INCOME
                   - VARIABLE_INCOME
-                  - TREASURE_TITLE  # TREASURY_BONDS
+                  - TREASURE_TITLE
                   - FUND
                 example: PAYMENT
               resourceLegacyId:
@@ -1363,9 +1470,8 @@ components:
               authorizers:
                 deprecated: true
                 description: |
-                  [Obsoleto] Lista dos autorizadores para o recurso para casos de
-                  múltipla alçada. Caso o recurso seja selecionado, todos os
-                  autorizadores deverão aceitar o consentimento que o recurso faz parte
+                  [Obsoleto] Lista dos autorizadores para o recurso para casos de múltipla alçada.
+                  Caso o recurso seja selecionado, todos os autorizadores deverão aceitar o consentimento que o recurso faz parte
                 type: array
                 items:
                   type: object
@@ -1374,14 +1480,16 @@ components:
                     - name
                   properties:
                     cpf:
-                      description: CPF do autorizador
+                      description: |
+                        CPF do autorizador
                       type: string
                       minLength: 11
                       maxLength: 11
                       pattern: ^\d{11}$
                       example: '11111111111'
                     name:
-                      description: Nome do autorizador
+                      description: |
+                        Nome do autorizador
                       type: string
                       example: Marco Antonio de Brito
                 minItems: 1
@@ -1393,23 +1501,19 @@ components:
           maxItems: 1000
         expirationDateTime:
           description: |
-            Data e hora de expiração da permissão. De preenchimento obrigatório,
-            reflete a data limite de validade do consentimento. Uma string com
-            data e hora conforme especificação RFC-3339, sempre com a utilização
-            de timezone UTC (UTC time format).
+            Data e hora de expiração da permissão.
+            De preenchimento obrigatório, reflete a data limite de validade do consentimento.
+            Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC (UTC time format).
           type: string
           maxLength: 20
-          pattern: |
-            ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$ '
           example: '2021-05-21T08:30:00Z'
         permissions:
           type: array
           items:
             description: |
-              Somente para consentimentos de compartilhamento de dados. Especifica
-              os tipos de permissões de acesso às APIs no escopo do Open Finance
-              Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos
-              pelo usuário e necessários ao acesso a cada endpoint das APIs.
+              Somente para consentimentos de compartilhamento de dados.
+              Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.
             type: string
             enum:
               - ACCOUNTS_READ
@@ -1445,7 +1549,7 @@ components:
               - CREDIT_FIXED_INCOMES_READ
               - FUNDS_READ
               - VARIABLE_INCOMES_READ
-              - TREASURE_TITLES_READ  # TREASURY_BONDS_READ
+              - TREASURE_TITLES_READ
               - EXCHANGES_READ
               - RESOURCES_READ
           minItems: 1
@@ -1454,24 +1558,37 @@ components:
       additionalProperties: false
     RequestMeta:
       type: object
-      description: Objeto que contém dados referentes ao contexto no qual o request for recebido.
+      description: |
+        Objeto que contém dados referentes ao contexto no qual o request for recebido.
       required:
         - correlationId
         - brandId
       properties:
         correlationId:
           type: string
-          description: UUID que identifica o correlation ID da requisição realizada. Deve ser propagado para todas as chamadas feitas entre sistemas e logado sempre que possível para facilitar o trace de erros
-          pattern: >-
-            ^(localID:)?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          description: |
+            UUID que identifica o correlation ID da requisição realizada.
+            Deve ser propagado para todas as chamadas feitas entre sistemas e logado sempre que possível para facilitar o trace de erros
+          pattern: ^(localID:)?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
           example: localID:97623ed1-4732-4bf2-8d4b-ae7aced5443b
         brandId:
           type: string
-          description: Identificador da marca reportada pelo participante do Open Finance
+          description: |
+            Identificador da marca reportada pelo participante do Open Finance
           example: cbanco
           minLength: 1
           maxLength: 50
       additionalProperties: false
+    RequestWithConsentAndRequestMeta:
+      type: object
+      required:
+        - consent
+        - requestMeta
+      properties:
+        consent:
+          $ref: '#/components/schemas/ConsentDataSharing'
+        requestMeta:
+          $ref: '#/components/schemas/RequestMeta'
     RequestWithConsentAndRequestMetaAndPagination:
       type: object
       required:
@@ -1488,6 +1605,98 @@ components:
           $ref: '#/components/schemas/PageSize'
         pagination-key:
           $ref: '#/components/schemas/PaginationKey'
+    MetaOnlyRequestDateTimeAndHasMoreRecords:
+      type: object
+      description: |
+        Meta informações referente à API requisitada.
+      required:
+        - requestDateTime
+        - hasMoreRecords
+      properties:
+        requestDateTime:
+          description: |
+            Data e hora da consulta, conforme especificação RFC-3339, formato UTC.
+          type: string
+          maxLength: 20
+          format: date-time
+          example: '2021-05-21T08:30:00Z'
+        hasMoreRecords:
+          type: boolean
+          description: |
+            Indica se tem mais registros a serem retornados (true) ou não (false).
+          example: true
+    NonSelectableResourceDiscoveryResponse:
+      title: Non-Selectable Resource Discovery Response
+      type: object
+      properties:
+        resources:
+          description: |
+            Lista de recursos relacionados ao discovery
+          type: array
+          items:
+            type: object
+            properties:
+              resourceLegacyId:
+                description: |
+                  Array de chave e valor com a chave de identificação do recurso no sistema de origem (legado), permitindo chaves compostas
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      description: |
+                        Nome do campo do identificador no sistema de origem
+                      type: string
+                    value:
+                      description: |
+                        Valor do campo do identificador no sistema de origem
+                      type: string
+                  required:
+                    - key
+              validUntil:
+                description: |
+                  Indica a data até a qual o recurso estará disponível.
+                type: string
+                format: date
+                example: '2025-05-21'
+              status:
+                description: |
+                  Indica o status atual do recurso
+                type: string
+                default: AVAILABLE
+                enum:
+                  - AVAILABLE
+                  - PENDING_AUTHORISATION
+                  - UNAVAILABLE
+                  - TEMPORARILY_UNAVAILABLE
+              authorizers:
+                description: |
+                  Lista dos autorizadores para o recurso para casos de multipla alçada.
+                  Caso o recurso seja selecionado, todos os autorizadores deverão aceitar o consentimento que o recurso faz parte
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cpf:
+                      description: |
+                        CPF do autorizador
+                      type: string
+                      minLength: 11
+                      maxLength: 11
+                      pattern: ^\d{11}$
+                    name:
+                      description: |
+                        Nome do autorizador
+                      type: string
+                  required:
+                    - cpf
+                    - name
+                minItems: 1
+            required:
+              - resourceLegacyId
+              - validUntil
+      required:
+        - resources
     RequestWithConsentAndRequestMetaAndInvestmentId:
       type: object
       required:
@@ -1501,16 +1710,6 @@ components:
           $ref: '#/components/schemas/RequestMeta'
         investmentId:
           $ref: '#/components/schemas/LegacyId'
-    RequestWithConsentAndRequestMeta:
-      type: object
-      required:
-        - consent
-        - requestMeta
-      properties:
-        consent:
-          $ref: '#/components/schemas/ConsentDataSharing'
-        requestMeta:
-          $ref: '#/components/schemas/RequestMeta'
     RequestTransactions:
       type: object
       required:
@@ -1557,85 +1756,6 @@ components:
           $ref: '#/components/schemas/ToTransactionConversionDateCurrent'
         pagination-key:
           $ref: '#/components/schemas/PaginationKey'
-    LegacyId:
-      description: >-
-        Array de chave e valor com a chave de identificação do recurso no sistema
-        de origem (legado), permitindo chaves compostas
-      type: array
-      items:
-        type: object
-        required:
-          - key
-          - value
-        properties:
-          key:
-            description: Nome do campo do identificador no sistema de origem
-            type: string
-            example: internalResourceId
-          value:
-            description: Valor do campo do identificador no sistema de origem
-            type: string
-            example: '1234'
-        additionalProperties: false
-      minItems: 1
-      maxItems: 10
-    FromTransactionConversionDate:
-      description: |
-        Data inicial de filtragem.
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionConversionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
-      type: string
-      maxLength: 10
-      format: date
-      example: '2021-05-21'
-    FromTransactionConversionDateCurrent:
-      description: |
-        Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionConversionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.:
-      type: string
-      maxLength: 10
-      format: date
-      example: '2021-05-21'
-    ToTransactionConversionDate:
-      description: |
-        Data final de filtragem.
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionConversionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
-      type: string
-      maxLength: 10
-      format: date
-      example: '2021-05-21'
-    ToTransactionConversionDateCurrent:
-      description: |
-        Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionConversionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
-      type: string
-      maxLength: 10
-      format: date
-      example: '2021-05-21'
-    PaginationKey:
-      description: >-
-        Identificador de rechamada, utilizado para evitar a contagem de chamadas
-        ao endpoint durante a paginação.
-      type: string
-      maxLength: 2048
-      pattern: '[\w\W\s]*'
-    Page:
-      description: Número da página que está sendo requisitada (o valor da primeira página é 1).
-      type: integer
-      default: 1
-      minimum: 1
-      maximum: 2147483647
-      format: int32
-    PageSize:
-      description: Quantidade total de registros por páginas.
-      type: integer
-      default: 25
-      minimum: 1
-      format: int32
-      maximum: 1000
   responses:
     OkResponseFundsProductList:
       description: Dados obtidos com sucesso
@@ -1823,3 +1943,9 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    OKResponseFundDiscovery:
+      description: Lista de recursos representando os investimentos do tipo Fundos de Investimento realizados pelo cliente obtidos com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NonSelectableResourceDiscoveryResponse'
