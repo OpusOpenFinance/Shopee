@@ -58,7 +58,7 @@ Se houver apóstrofos dentro de uma string delimitada por apóstrofos, troque os
 
 - Mantenha rigorosamente a indentação de cada linha no YAML.
 - Nunca insira texto em português em campos ou comentários relacionados a `description`, `summary` ou `info`.
-- Nunca utilize o prefixo `"English:"` nas traduções inseridas como comentários em ENUMs e NENHUM OUTRO PREFIXO como "pt:". Apenas coloque diretamente a tradução no comentário.
+- NUNCA utilize o prefixo `"English:"` nas traduções inseridas como comentários em ENUMs e NENHUM OUTRO PREFIXO como "pt:". Apenas coloque diretamente a tradução no comentário.
 
 Entrada para tradução:
 
