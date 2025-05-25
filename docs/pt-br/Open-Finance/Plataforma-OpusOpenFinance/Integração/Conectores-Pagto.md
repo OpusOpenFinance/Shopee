@@ -1,11 +1,13 @@
-<!-- ---
+<!--
+---
 layout: default
 title: "Pagamentos"
 parent: "Integração da Plataforma"
 nav_order: 3
 lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Plataforma-OpusOpenFinance/Integração/Conectores-Pagto/"
---- -->
+---
+-->
 
 ## Pagamentos
 
@@ -21,13 +23,13 @@ A imagem abaixo esquematiza como o funcionamento do conector. Quando uma institu
 
 ## Camada dos conectores
 
-Tipicamente, um Conector é uma rota definida no [Apache Camel](xxx) que conecta um endpoint do sistema de retaguarda da instituição financeira à plataforma, realizando o pagamento associado à requisição recebida.
+Tipicamente, um Conector é uma rota definida no [Apache Camel](https://camel.apache.org) que conecta um endpoint do sistema de retaguarda da instituição financeira à plataforma, realizando o pagamento associado à requisição recebida.
 
- Além disso, os conectores podem fazer pequenas transformações nos dados passados para respeitar formatos tanto do plataforma da Opus quanto do sistema de retaguarda acionado. Por fim, os conectores podem fazer as mudanças necessárias, omitindo ou adicionando campos das requisições e repostas, para que ambas estejam de acordo com aquilo esperado em ambos os lados da comunicação.
+ Além disso, os conectores podem fazer pequenas transformações nos dados passados para respeitar formatos tanto do **Plataforma Opus Open Finance** quanto do sistema de retaguarda acionado. Por fim, os conectores podem fazer as mudanças necessárias, omitindo ou adicionando campos das requisições e repostas, para que ambas estejam de acordo com aquilo esperado em ambos os lados da comunicação.
 
 Para pagamentos, existem atualmente rotas para: criar a iniciação do pagamento (POST) depois de já terem o consentimento, recuperar iniciações de pagamentos (GET) já realizadas, cancelar a iniciação de pagamento (PATCH), descobrir e listar contas e validar pagamentos.
 
-Lembrando que esse pagamento será apenas iniciado pelo plataforma e cabe à instituição de fato realizar ou agendar o pagamento e retornar o resultado para o produto da Opus.
+Lembrando que esse pagamento será apenas iniciado pela plataforma e cabe à instituição de fato realizar ou agendar o pagamento e retornar o resultado para o produto da Opus.
 
 ## Rotas dos conectores
 

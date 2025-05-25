@@ -5,8 +5,7 @@ info:
     API de Iniciação de Pagamentos, responsável por viabilizar as operações
     de iniciação de pagamentos para o Opus Open Finance Brasil.
     
-    Deve ser disponibilizada pela Instituição Detentora de Conta e receberá requisições feitas pelo Opus Open
-    Finance Brasil.
+    Deve ser disponibilizada pela Instituição Detentora de Conta e receberá requisições feitas pela Plataforma Opus Open Finance.
     
     # Cenários de Pagamentos a Serem Cobertos pela Integração
 
@@ -14,7 +13,7 @@ info:
 
     Para pagamentos retidos para análise (status "PDNG" no Open Finance) ou agendados, também é necessário contemplar a possibilidade de revogação do pagamento.
 
-    ## Cenários por Tipo de Usuário Logado
+    ## Cenários por Tipo de Cliente Pagador
 
     - **Pessoa Física (PF)**
     - **Pessoa Jurídica (PJ)** *(quando suportado pela retaguarda da instituição financeira)*
@@ -50,7 +49,7 @@ info:
 
     A análise de campos abaixo é feita para o payload da requisição de criação de pagamentos.
 
-    ### Como Identificar o Tipo de Usuário Logado
+    ### Como Identificar o Tipo de Cliente Pagador
 
     | Campo `consent.businessDocumentType.document.identification` | Interpretação |
     | ------------------------------------------------------------ | ------------- |
@@ -232,9 +231,9 @@ info:
 
     **A retaguarda da instituição financeira precisa suportar Agendamentos Recorrentes?**
 
-    Não. O produto realizará uma requisição separada para cada data de recorrência.
+    Não. A plataforma Opus Open Finance realizará uma requisição separada para cada data de recorrência.
 
-    Por exemplo, ao receber uma requisição de agendamento recorrente por 5 meses, um débito por mês, o produto solicitará para a retaguarda da instituição financeira 5 agendamento independentes.  
+    Por exemplo, ao receber uma requisição de agendamento recorrente por 5 meses, um débito por mês, a plataforma solicitará para a retaguarda da instituição financeira 5 agendamento independentes.  
     A data de cada agendamento deve ser determinada conforme descrito na seção ["Cenários por Data de Efetivação do Pagamento"](#cenários-por-data-de-efetivação-do-pagamento).
   version: 0.1.0-base4.0.0-2.0.0
   license:

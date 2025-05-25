@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Open Data"
+title: "Open data"
 parent: "Participation Profiles"
 nav_order: 1
 lang: "en"
