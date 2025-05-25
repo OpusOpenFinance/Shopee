@@ -1,0 +1,36 @@
+#
+# Script para geração das páginas HTML estáticas da documentação da Plataforma Opus Open Finance.
+#
+# Utilizamos o Jekyll para fazer a geração.
+#
+# Para gerar as páginas adequadamnte utilizamos um truque:
+# Como as págians estão em dois idiomas, Português e Inglês, se gerarmos as páginas dos dois idiomas em um só passo o menú de navegação
+# vai incluir os títulos das páginas nos dois idiomas.
+# Então, realizamos a geração em dois passos:
+#   1) Movemos as páginas fonte em inglês para outro diretório
+#   2) Geramos as páginas do site em português
+#   3) Movemos as páginas fonte em português para outro diretorio
+#   4) Geramos as páginas do site em inglês
+
+cd docs
+
+# Move as páginas fonte em inglês para outro diretório.
+mv en ../HOLD
+
+# Gera as págians em portugês.
+bundle exe jekyll build --baseurl /Documentation --destination $HOME/site_doc_oof/_site --config _config.yml --trace --verbose --watch
+
+# Devolve as páginas em inglês para o diretório correto.
+mv ../HOLD/en .
+
+# Move as páginas fonte em portugês para outro diretório.
+mv pt-br ../HOLD
+
+# Gera as págians em inglês.
+bundle exe jekyll build --baseurl /Documentation --destination $HOME/site_doc_oof/_site --config _config.yml --trace --verbose --watch
+
+# Devolve as páginas em inglês para o diretório correto.
+mv ../HOLD/pt-br .
+
+echo "Site gerado!"
+

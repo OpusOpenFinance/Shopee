@@ -10,7 +10,7 @@ alternate_lang: "/docs/en/Open-Finance/Plataforma-OpusOpenFinance/Integração/C
 
 # Compartilhamento de dados
 
-O perfil de participação de transmissor de dados no *Open Finance Brasil* exige que a instituição financeira seja capaz de atender a requisições de dados vindas de outras instituições participantes. Antes que uma outra instituição financeira possa realizar requisições de dados referentes aos clientes da transmissora, esse cliente deve ter previamente autorizado o compartilhamento de seus dados, o que é feito através de um **consentimento de compartilhamento de dados**.
+O perfil de participação de *transmissor de dados*, no pilar de compartilhamento de dados do *Open Finance Brasil*, exige que a instituição financeira seja capaz de atender a requisições de dados vindas de outras instituições participantes. Antes que uma outra instituição financeira possa realizar requisições de dados referentes aos clientes da transmissora, esse cliente deve ter previamente autorizado o compartilhamento de seus dados, o que é feito através de um **consentimento de compartilhamento de dados**.
 
 Conforme já apresentado, a **Plataforma Opus Open Finance** realiza a gestão de consentimentos ativos, e também verifica a validade das requisições recebidas. Essa verificação inclui avaliar se o pedido de dados enviado pela instituição receptora - que sempre inclui um identificador de consentimento - é um consentimento ativo e também se ele autoriza o compartilhamento dos dados que estão sendo requisitados. Por exemplo, um cliente em tese poderia compartilhar seus dados cadastrais e de cartão de crédito, mas não seus dados de conta corrente ou de empréstimos.
 
