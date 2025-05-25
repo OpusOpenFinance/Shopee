@@ -1,6 +1,6 @@
 # Documentação da Plataforma Opus Open Finance
 
-A documentação está estruturada para ser gerada diretamente a partir dos arquivos de texto em formtato Markdowna dentro do Github. As páginas HTML são geradas utilzando o Github Pages e o template [Just the docs].
+A documentação está estruturada para ser gerada diretamente a partir dos arquivos de texto em formato Markdown dentro do Github. As páginas HTML são geradas utilizando o Github Pages e o template [Just the docs].
 
 ## Estrutura de diretórios
 

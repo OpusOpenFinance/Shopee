@@ -48,7 +48,7 @@ _Etapa de liquidação do pagamento:_
 
 A descrição da API que deve ser implementada pela _camada de integração de pagamento_ pode ser encontrada [**aqui**.][API-pagamento].
 
-Para fazer o download do arquivo YAML/OAS que contém a especificação da API clique [**aqui**](payment-integration-0-1-0.yml){:download="../payment-integration-0-1-0.yml"}.
+Para fazer o download do arquivo YAML/OAS que contém a especificação da API clique [**aqui**](payment-integration-0-1-0.yml){:download="../apis/payment-integration-0-1-0.yml"}.
 
 ## Cenários de Pagamentos a Serem Cobertos pela Integração
 

@@ -6,5 +6,7 @@
 # O servidor ficará rodando até ser interrompido via <Control-C>
 #
 cd docs
+ln -s /home/barguilf/site_doc_oof/_site _site
 bundle exe jekyll serve --baseurl /Documentation --skip-initial-build --no-watch --host=0.0.0.0 --config _config.yml --trace --verbose
+rm _site
 
