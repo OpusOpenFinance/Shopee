@@ -7,9 +7,7 @@ lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Open-Finance-Brasil/PerfisOFB/OnboardingITP/"
 ---
 
-## Processo de Onboarding de um Iniciador de Transação de Pagamento (ITP)
-
-### Introdução
+# Onboarding de um ITP
 
 Para se tornar uma instituição apta a realizar **Iniciações de Transação de Pagamento (ITP)**, é necessário cumprir uma série de pré-requisitos e requisitos organizados em 3 macro-etapas:
 
@@ -21,7 +19,7 @@ Ao concluir essas etapas, a instituição estará apta a realizar pagamentos em 
 
 ---
 
-### Visão Geral para se Tornar um ITP
+## Visão Geral para se Tornar um ITP
 
 | **Etapa**                     | **Descrição**                                                                                     | **Sistemas Envolvidos**            | **Observações**                                                                                                                                                                |
 |-------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -33,9 +31,9 @@ Ao concluir essas etapas, a instituição estará apta a realizar pagamentos em 
 
 ---
 
-### Detalhamento das Etapas
+## Detalhamento das Etapas
 
-#### **Etapa 1 - Autorização e Regulação**
+### **Etapa 1 - Autorização e Regulação**
 
 O propósito dessa documentação não é entrar no detalhe de como obter uma autorização do Banco Central, a qual contém uma complexidade extremamente alta. Dessa forma, focaremos em regras de negócio para essa etapa. Caso você ou sua instituição tenha interesse em se tornar uma autorizada, podemos indicar parceiros especialistas mais voltados para a realidade jurídica para atingir esse objetivo.
 
@@ -47,9 +45,9 @@ Em geral, a autorização do ITP é focada para instituições que procuram uma 
 
 > Para o processo de autorização, é fundamental que sua área de compliance seja envolvida.
 
-#### **Etapa 2 - Pré-homologatória**
+### **Etapa 2 - Pré-homologatória**
 
-##### Pré-requisitos
+#### Pré-requisitos
 
 Assim que a instituição já está autorizada para funcionar como ITP, é necessário estar de acordo com os pré-requisitos que antecedem a etapa homologatória do ITP no Open Finance. Os pré-requisitos são divididos em 4:
 
@@ -71,7 +69,7 @@ Assim que a instituição já está autorizada para funcionar como ITP, é neces
     Para fazê-lo, sua instituição precisa demonstrar interesse para o Banco Central, através de um formulário de adesão ao Pix. [O processo está descrito na página oficial do Banco Central](https://www.bcb.gov.br/estabilidadefinanceira/participantespix). A tabela sintetiza os principais formulários.
     O processo se divide em três etapas para cadastro dentro do arranjo Pix:
 
-##### **Etapa 1 _PIX_- Cadastral**
+#### **Etapa 1 _PIX_- Cadastral**
 
 Consiste no envio de documentos necessários para cadastrar a instituição no arranjo Pix:
 
@@ -86,7 +84,7 @@ Consiste no envio de documentos necessários para cadastrar a instituição no a
 
 ---
 
-##### **Etapa 2 _PIX_- Homologatória**
+#### **Etapa 2 _PIX_- Homologatória**
 
 É a etapa referente aos testes que devem ser executados para ser incluído como participante Pix. Essa etapa possui vários testes, todavia é necessário fazer apenas aqueles que são direcionados para o Iniciador de Transação de Pagamentos, caso os demais sejam facultativos para a instituição.
 
@@ -94,13 +92,13 @@ Consiste no envio de documentos necessários para cadastrar a instituição no a
 
 O teste obrigatório é apenas a Validação da prestação de serviço de iniciação de pagamento. Além dele, existem outros dois, caso sua instituição ofereça QR Code ou tenha acesso ao DICT, os testes são Validação de QR Codes e Testes DICT, respectivamente.
 
-##### **Etapa 3 _PIX_- Etapa de operação restrita**
+#### **Etapa 3 _PIX_- Etapa de operação restrita**
 
 Para Iniciador, não há necessidade de operação restrita. Uma vez que a etapa cadastral e homologatória sejam concluídas, sua instituição já será listada na lista de participantes pix.
 
 ---
 
-#### **Etapa 3 - Onboarding ITP**
+### **Etapa 3 - Onboarding ITP**
 
 Por fim, chega-se na parte 100% relacionada ao ecossistema de Open Finance, conhecido por Onboarding ITP. Essa etapa está muito bem descrita dentro do portal do desenvolvedor com o [guia de onboarding ITP](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17378706/Guia+de+Onboarding+ITP).
 
@@ -116,11 +114,11 @@ A Opus estará ao lado da instituição durante toda a etapa homologatória, agi
 
 ---
 
-### Acesso ao DICT
+## Acesso ao DICT
 
 O acesso ao DICT não é obrigatório, mas limita os tipos de iniciação de pagamento permitidos. Sem o acesso, apenas o **Pix Manu** é viável, no qual a instituição já possui as informações de conta e agência do correntista.
 
-#### **Tipos de Iniciação de Pagamento Pix**
+### **Tipos de Iniciação de Pagamento Pix**
 
 | **Tipo**       | **Descrição**                                                                 | **Necessário Acesso ao DICT?** |
 |----------------|:-------------------------------------------------------------------------------:|:--------------------------------:|

@@ -81,7 +81,7 @@ O JWT deve possuir as claims abaixo, sendo obrigatórias aquelas marcadas com as
 - `jti`**\***: Identificador único do token em formato *UUID* utilizado para evitar
 *replay-attacks*. Deve ser preenchido com o mesmo valor recebido do AS no comando.
 
-- `authExtraData`: Cojunto de informações extras relacionadas ao usuário logado
+- `authExtraData`: Conjunto de informações extras relacionadas ao usuário logado
 representadas por um array de dicionários *chave/valor* com dois campos obrigatórios,
 `key` e `value`. Deve ser usado para envio das credenciais do usuário caso
 a instituição não utilize *cpf* ou *cnpj* para autenticação.
@@ -164,7 +164,7 @@ compartilhados com base nas permissões fornecidas no consentimento
 de compartilhamento de dados. Portanto durante a aprovação do consentimento
 não é feita a seleção deles.
 
-### Multipla alçada
+### Múltipla alçada
 
 Dois parâmetros opcionais foram adicionados ao request do comando de
 consentimento como forma de especificar se o consentimento é de múltipla
@@ -182,7 +182,7 @@ uma autorização completa.
 ### Uso de cheque especial para pagamento recorrente automático
 
 Um parâmetro opcional foi introduzido ao request de comando de
-consentimento como forma de especificar se o cliente opta pelo uso 
+consentimento como forma de especificar se o cliente opta pelo uso
 de cheque especial:
 
 | Nome                  | Default | Descrição                                               |

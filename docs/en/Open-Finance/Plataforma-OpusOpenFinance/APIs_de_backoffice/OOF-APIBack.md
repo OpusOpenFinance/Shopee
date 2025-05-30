@@ -2,7 +2,7 @@
 layout: default
 title: "Consent Management APIs"
 parent: "Opus Open Finance Brazil"
-nav_order: 6
+nav_order: 2
 lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Plataforma-OpusOpenFinance/APIs_de_backoffice/OOF-APIBack/"
 ---

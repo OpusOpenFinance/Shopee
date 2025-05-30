@@ -1,0 +1,82 @@
+---
+---
+
+body{
+  font-family: 'Inter', sans-serif !important;
+  color: #1e1360 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+.main-content {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 300 !important;
+  line-height: 1.5 !important;
+  color: #1e1360 !important;
+}
+
+// Aplicar fonte e cor aos cabeçalhos
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  font-family: 'Merriweather', serif !important;
+  font-weight: 300 !important;
+  color: #1e1360 !important;
+}
+
+// Fonte do cabeçalho de navegação 
+
+.nav-list-title {
+  font-family: 'Merriweather', serif !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  color: #1e1360 !important;
+}
+
+// Largura da barra lateral
+
+.nav-list-link{
+  font-family: 'Inter', sans-serif;
+  font-size: 16px !important;     // Padrão é 14px.
+  font-weight: 400;
+  color: #1e1360 !important;
+  transition: all 0.2s ease
+}
+
+.nav-list-link:hover {
+  background-color: #e1ecf9 !important;
+  color: #1a73e8 !important;
+}
+
+.side-bar {
+  width: 300px !important;                  // Padrão é 300px. Deve corresponder a .main->{margin-left} abaixo.
+  background-color: #f5f8fc !important    // Background azul acinzentado.
+}
+
+.site-title {
+  font-family: 'Merriweather', serif !important;
+  font-weight: 300 !important;
+  color: #1e1360 !important;
+  font-size: 18px !important;
+  margin: 1rem 1.25rem;
+}
+
+.breadcrumb-nav {                 // Parâmetros para o trecho do cabeçalho que exibe a hierarquia da página
+  margin-top: 0.5rem !important;  // ou ajuste conforme necessidade
+}
+
+.main {
+  margin-left: 300px !important;   // Deve corresponder à largura da barra lateral .sidebar->{width} definida acima
+  padding-top: 1.25rem !important; // Espaço entre a barra e o conteúdo.
+}
+
+@media(min-width: 50rem) {
+  .main-content-wrap {
+    max-width: 100% !important;
+    padding-right: 2rem;         // opcional: cotrola o espaçamento da direita
+  }
+}

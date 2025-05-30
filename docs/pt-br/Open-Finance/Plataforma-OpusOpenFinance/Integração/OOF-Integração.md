@@ -2,7 +2,7 @@
 layout: default
 title: "Integração da Plataforma"
 parent: "Opus Open Finance"
-nav_order: 8
+nav_order: 4
 has_children: true
 lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Plataforma-OpusOpenFinance/Integração/OOF-Integração/"

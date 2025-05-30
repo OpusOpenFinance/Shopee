@@ -7,7 +7,7 @@ lang: "en"
 alternate_lang: "/docs/pt-br/index/"
 ---
 
-## Opus Open Finance Platform Documentation
+# Opus Open Finance Platform Documentation
 
 Welcome to the **Opus Open Finance Platform** documentation!
 
@@ -19,7 +19,7 @@ While offering full regulatory compliance for all participant profiles within *O
 
 ---
 
-### Introduction to the Opus Open Finance Platform
+## Introduction to the Opus Open Finance Platform
 
 The **Opus Open Finance Platform** is a software solution designed to fully meet the regulatory requirements established by the Central Bank of Brazil. This document provides an overview of how our platform can help your financial institution integrate and operate efficiently within Open Finance.
 
@@ -32,7 +32,7 @@ The platform serves as an essential middleware that enables your institution to 
 
 ---
 
-### Structure of this Document
+## Structure of this Document
 
 This document is structured to provide an overview of the concepts involved in Open Finance and the technical details necessary for adopting the **Opus Open Finance Platform**. It also covers the implementation aspects for each *Open Finance Brasil* participant profile. For a detailed technical perspective, the documentation also includes sequence diagrams and API descriptions following the *Open API Specification* standard.
 

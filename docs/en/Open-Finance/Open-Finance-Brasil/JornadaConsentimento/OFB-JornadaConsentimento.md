@@ -7,7 +7,7 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Open-Finance-Brasil/JornadaConsentimento/OFB-JornadaConsentimento/"
 ---
 
-## Consent Journey
+# Consent Journey
 
 In Open Finance, any operation can only be performed — whether it is data sharing or making a payment — if there is consent approved by the user (client of a financial institution) who initiated the journey. Therefore, it is always necessary to perform a *consent journey* for the user to authorize the operation.
 

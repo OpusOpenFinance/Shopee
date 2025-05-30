@@ -18,6 +18,9 @@
 
 cd docs
 
+# Começa limpando a área para garantir reconstrução completa do site.
+bundle exec jekyll clean
+
 # Move as páginas fonte em inglês para outro diretório.
 mv en ../HOLD
 

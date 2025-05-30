@@ -6,7 +6,7 @@ nav_order: 5
 lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Open-Finance-Brasil/PCM/OFB-PCM/"
 ---
-## Introdução
+# Plataforma de Coleta de Métricas
 
 A **Plataforma de Coleta de Métricas (PCM)** é um requisito regulatório obrigatório no ecossistema Open Finance. Todas as instituições participantes devem reportar à estrutura de governança métricas relacionadas a todas as chamadas de API efetuadas e/ou recebidas.
 

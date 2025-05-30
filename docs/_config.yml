@@ -37,6 +37,12 @@ just_the_docs:
     - /assets/js/open-links.js
     - /assets/js/language-redirect.js
 
+  custom_css: assets/css/custom.css
+
+  include_head: head_custom.html
+
+  header_custom: true
+
 # remote_theme: "just-the-docs/just-the-docs"
 
 include:            # Força o uso do layout default local em vez do remoto.

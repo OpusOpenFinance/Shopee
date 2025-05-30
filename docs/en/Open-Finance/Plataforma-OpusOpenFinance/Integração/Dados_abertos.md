@@ -7,7 +7,7 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Plataforma-OpusOpenFinance/Integração/Dados_abertos/"
 ---
 
-# Introduction
+# Open Data
 
 The open data profile corresponds to the public data that participating institutions in Open Finance must disclose to the ecosystem. To learn more about the open data profile, [see here][Perfis-Open-Finance-Brasil].
 The open data profile is required for all participants in the ecosystem, and the data must be accessible through APIs. The Opus Open Finance Platform implements all of these APIs.

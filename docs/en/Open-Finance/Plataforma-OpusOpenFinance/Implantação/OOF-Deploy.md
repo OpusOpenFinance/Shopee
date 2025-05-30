@@ -7,19 +7,13 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Plataforma-OpusOpenFinance/Implantação/OOF-Deploy/"
 ---
 
-# Opus Open Finance Infrastructure Core
+# Opus Open Finance Platform Infrastructure
 
-This document aims to guide the replication of our Open Finance infrastructure in our clients' environments. It contains the necessary commands and technical instructions to ensure efficient and secure integration. Below, we provide an overview of Open Finance Brasil and the technologies we use to deliver resilience, scalability, and security.
-
----
-
-## Introduction to Open Finance Brasil
-
-Open Finance Brasil is a regulated system that enables the secure sharing of financial data between authorized institutions, with user consent. Its goal is to promote greater competitiveness, financial inclusion, and innovation through the interoperability of financial systems. Our infrastructure is designed to meet the requirements of this ecosystem, ensuring security and reliability in data handling.
+The **Opus Open Finance Platform** was built to provide resilience, scalability, and security. To provide these features, it relies on software infrastructure components suitable for execution in a cloud computing environment. Below, we present these components and the necessary configuration for the platform's proper execution.
 
 ---
 
-## Opus Open Finance Architecture Diagram
+## Opus Open Finance Platform Architecture Diagram
 
 ![Architecture][Architecture Diagram]
 
@@ -27,7 +21,7 @@ Open Finance Brasil is a regulated system that enables the secure sharing of fin
 
 ## Requirements
 
-To use Opus Open Finance, the following requirements must be met:
+To run the Opus Open Finance Platform, the following requirements must be met:
 
 1. **Kubernetes Cluster**:
    - Configured with a Storage Class for disks used by components that persist data.
@@ -37,11 +31,11 @@ To use Opus Open Finance, the following requirements must be met:
    - Recommended versions: >= 14.
 
 3. **Tools on the Access Machine**:
-   - **kubectl** (Installation instructions available in the [link](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/))
-   - **terraform** v1.8.x (Installation instructions available in the [link](https://developer.hashicorp.com/terraform/install#linux))
-   - **terragrunt** v.0.43.x (Installation instructions available in the [link](https://terragrunt.gruntwork.io/docs/getting-started/install/))
-   - **age** v1.x.x (Installation instructions available in the [link](https://github.com/FiloSottile/age?tab=readme-ov-file#installation))
-   - **sops** v3.x.x (Installation instructions available in the [link](https://github.com/getsops/sops?tab=readme-ov-file#1download))
+   - **Kubectl** (Installation instructions available in the [Kubectl documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/))
+   - **Terraform** v1.8.x (Installation instructions available in the [Terraform documentation](https://developer.hashicorp.com/terraform/install#linux))
+   - **Terragrunt** v.0.43.x (Installation instructions available in the [Terragrunt documentation](https://terragrunt.gruntwork.io/docs/getting-started/install/))
+   - **Age** v1.x.x (Installation instructions available in the [Age documentation](https://github.com/FiloSottile/age?tab=readme-ov-file#installation))
+   - **Sops** v3.x.x (Installation instructions available in the [Sops documentation](https://github.com/getsops/sops?tab=readme-ov-file#1download))
 
 4. **Messaging Service**:
    - Required for communication between distributed services.
@@ -58,7 +52,7 @@ To use Opus Open Finance, the following requirements must be met:
 
 The entire infrastructure of the Opus Open Finance Platform is built using Terraform scripts. To facilitate infrastructure-as-code management, we use **Terragrunt**, a tool that provides an abstraction layer to simplify common Terraform tasks such as managing configurations, dependencies, and environments. This makes the implementation and maintenance process easier for users.
 
-Some of the key features of Terragrunt include its **hierarchical model**, where configurations are inherited from "parent" files using the `include` block. To better understand this functionality, it is recommended to read the article provided by the Terragrunt team: [link](https://terragrunt.gruntwork.io/docs/features/keep-your-terragrunt-architecture-dry/).
+Some of the key features of Terragrunt include its **hierarchical model**, where configurations are inherited from "parent" files using the `include` block. To better understand this functionality, it is recommended to read the [article provided by the Terragrunt team](https://terragrunt.gruntwork.io/docs/features/keep-your-terragrunt-architecture-dry/).
 
 The structure is divided into two main components: **Core** and **Client**, which are described in detail in the **Hierarchy** section.
 

@@ -1,0 +1,15 @@
+---
+---
+
+:root {
+  --body-font-family: 'Inter', sans-serif !important;
+  --body-font-size: 16px !important;
+  --body-font-weight: 300 !important;
+  --body-line-height: 1.5 !important;
+  --body-text-color: #1e1360 !important;
+}
+
+// Estilo adicional direto no body, se necessário
+body {
+  -webkit-font-smoothing: antialiased !important;
+}

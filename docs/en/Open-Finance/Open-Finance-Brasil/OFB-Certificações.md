@@ -7,6 +7,8 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Open-Finance-Brasil/OFB-Certificações/"
 ---
 
+# Certifications and Certificates
+
 To participate in Open Finance, financial institutions must complete procedures to obtain two types of certifications:
 
 - **OpenID Security Certification**
