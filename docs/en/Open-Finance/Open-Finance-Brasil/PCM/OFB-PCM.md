@@ -7,11 +7,11 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Open-Finance-Brasil/PCM/OFB-PCM/"
 ---
 
-## Introduction
+# Metrics Collection Platform
 
 The **Metrics Collection Platform (MCP)** is a mandatory regulatory requirement in the Open Finance ecosystem. All participating institutions must report to the governance structure metrics related to all API calls made and/or received.
 
-In the official Open Finance brasil documentation you will find references to the Metrics Collection Platform under the acronym **"PCM"** (from "Plataforma de Coleta de Métricas).
+In the official Open Finance brasil documentation you will find references to the Metrics Collection Platform under the acronym **"PCM"** (from _"Plataforma de Coleta de Métricas"_).
 
 ### Information to be sent
 

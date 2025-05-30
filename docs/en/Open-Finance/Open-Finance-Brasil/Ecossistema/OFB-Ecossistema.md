@@ -7,7 +7,7 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Open-Finance-Brasil/Ecossistema/OFB-Ecossistema/"
 ---
 
-## The Ecosystem
+# The Ecosystem
 
 Open Finance Brasil plays a significant role in the transformation of the country’s payment system. Just as Pix was a success, Open Finance has various benefits for the entire Brazilian population, especially in the medium and long term. For the Central Bank, the purpose of Open Finance is to foster a more competitive environment in the financial system, improving service quality, promoting innovation, and increasing competition for customers, which naturally leads to a reduction in rates and costs by the market.
 

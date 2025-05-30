@@ -1,0 +1,1828 @@
+﻿openapi: 3.0.0
+info:
+  title: API Financings - Integration Layer - OPUS Open Finance Brasil
+  description: |
+    API for financing operations information from the Transmitter Institution's Integration Layer with Opus Open Finance Brasil.
+    API that returns information on credit operations of the financing type, held by customers with transmitting institutions, including data such as denomination, modality, contract number, fees, term, installments, payments (at least for the last 12 months), amortizations, warranties, charges, and remuneratory interest rates.\
+    Does not segregate between natural person and legal entity.
+
+    # Guidelines
+
+    ### Note
+      - In the /payments endpoint, pagination will occur on the data contained in the `releases` field, which is a list type.
+  version: 2.1.0-base2.3.0
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+tags:
+  - name: Financings
+paths:
+  /discovery:
+    post:
+      tags:
+        - Financings
+      summary: Gets a list of resources representing all financing type credit operations contracts entered into by the client.
+      operationId: discoverFinancings
+      description: Method to get the list of financing type credit operations contracts held by the client with the transmitting institution.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMeta'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingDiscovery'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /contracts:
+    post:
+      tags:
+        - Financings
+      summary: Gets financing contract data
+      description: Method to get the list of loan contracts held by the client with the transmitting institution and for which consent has been provided
+      operationId: financingsGetContracts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMetaAndPagination'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingsContractList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /find:
+    post:
+      tags:
+        - Financings
+      summary: Gets the data of the financing contract identified by contractId
+      description: Method to get the data of the financing contract identified by contractId held by the client with the transmitting institution
+      operationId: financingsGetContractsContractId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMetaAndContractId'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingsContract'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /warranties:
+    post:
+      tags:
+        - Financings
+      summary: Gets the list of warranties linked to the financing contract identified by contractId
+      description: Method to get the list of warranties linked to the loan contract identified by contractId held by the client with the transmitting institution. For products without warranties, an HTTP Status 200 should be returned with an empty "data" object, without any internal attributes.
+      operationId: financingsGetContractsContractIdWarranties
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMetaAndPaginationAndContractId'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingsWarranties'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /scheduled-instalments:
+    post:
+      tags:
+        - Financings
+      summary: Gets the financing contract's installment schedule data identified by contractId
+      description: Method to get the financing contract's installment schedule data identified by contractId held by the client with the transmitting institution
+      operationId: financingsGetContractsContractIdScheduledInstalments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMetaAndPaginationAndContractId'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingsInstalments'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /payments:
+    post:
+      tags:
+        - Financings
+      summary: Gets financing contract payment data identified by contractId
+      description: Method to get financing contract payment data identified by contractId held by the client with the transmitting institution
+      operationId: financingsGetContractsContractIdPayments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestWithConsentAndRequestMetaAndPaginationAndContractId'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseFinancingsPayments'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+components:
+  schemas:
+    ResponseErrorWithAbleAdditionalProperties:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 13
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                description: Endpoint-specific error code
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              title:
+                description: Human-readable title for this specific error
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              detail:
+                description: Human-readable description for this specific error
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 2048
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponseFinancingsContractList:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/FinancingsListContract'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponseFinancingsContract:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          $ref: '#/components/schemas/FinancingsContract'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponseFinancingsInstalments:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          $ref: '#/components/schemas/FinancingsInstalments'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponseFinancingsPayments:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          $ref: '#/components/schemas/FinancingsPayments'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponseFinancingsWarranties:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/FinancingsWarranties'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    EnumContractFinanceChargeType:
+      type: string
+      description: Type of charge agreed upon in the contract.
+      enum:
+        - JUROS_REMUNERATORIOS_POR_ATRASO # Remuneratory interest for delay
+        - MULTA_ATRASO_PAGAMENTO # Fine for late payment
+        - JUROS_MORA_ATRASO # Default interest for delay
+        - IOF_CONTRATACAO # IOF for contracting
+        - IOF_POR_ATRASO # IOF for delay
+        - SEM_ENCARGO # No charge
+        - OUTROS # Others
+      example: JUROS_REMUNERATORIOS_POR_ATRASO # Remuneratory interest for delay
+    EnumProductType:
+      type: string
+      description: |
+        "Type of credit modality contracted, according to circular 4.015 and description of DOC3040 from SCR). (See Enum)
+        Financings, Rural financings, and Real estate financings"
+      enum:
+        - FINANCIAMENTOS # Financings
+        - FINANCIAMENTOS_RURAIS # Rural Financings
+        - FINANCIAMENTOS_IMOBILIARIOS # Real Estate Financings
+      example: FINANCIAMENTOS # Financings
+    EnumProductSubType:
+      type: string
+      description: |
+        "Subtype of credit modalities contracted, according to circular 4.015 and description of DOC3040 from SCR). (See Enum)
+        Acquisition of motor vehicles, Acquisition of other goods, Microcredit, Working Capital, Investment, Industrialization, Commercialization, SFH Housing Financing, and SFH Except Housing Financing"
+      enum:
+        - AQUISICAO_BENS_VEICULOS_AUTOMOTORES # Acquisition of motor vehicles
+        - AQUISICAO_BENS_OUTROS_BENS # Acquisition of other goods
+        - MICROCREDITO # Microcredit
+        - CUSTEIO # Working Capital
+        - INVESTIMENTO # Investment
+        - INDUSTRIALIZACAO # Industrialization
+        - COMERCIALIZACAO # Commercialization
+        - FINANCIAMENTO_HABITACIONAL_SFH # SFH Housing Financing
+        - FINANCIAMENTO_HABITACIONAL_EXCETO_SFH # SFH Except Housing Financing
+      example: AQUISICAO_BENS_VEICULOS_AUTOMOTORES # Acquisition of motor vehicles
+    FinancingsContractInterestRate:
+      type: object
+      description: Object containing the set of necessary information to demonstrate the composition of remuneratory interest rates for the Credit Modality
+      required:
+        - taxType
+        - interestRateType
+        - taxPeriodicity
+        - calculation
+        - referentialRateIndexerType
+      properties:
+        taxType:
+          type: string
+          description: |
+            "Rate Type (see Enum)
+            - NOMINAL (Nominal rate is an interest rate where the reference unit does not match the capitalization time unit. It is always provided in annual terms, and its capitalization periods can be daily, monthly, quarterly, or semi-annually. E.g., a 12% per year rate with monthly capitalization)
+            - EFFECTIVE (It is an interest rate where the reference unit matches the capitalization time unit. As the time measurement units for the interest rate and capitalization periods are equal, simple examples like 1% per month, 60% per year are used)"
+          enum:
+            - NOMINAL
+            - EFETIVA
+          example: EFETIVA # Effective
+        interestRateType:
+          type: string
+          description: |
+            "Interest Type (see Enum)
+            - SIMPLE (always applied/charged on the initial capital, which is the amount borrowed/invested. There is no charge of interest on accumulated interest in the previous period(s). Example: in a R\$1,000 loan, with a simple interest rate of 8% p.a., lasting 2 years, the total interest will be R\$80 in the first year and R\$80 in the second year. At the end of the contract, the borrower will return the principal and the simple interest for each year: R\$1,000+R\$80+R\$80=R\$1,160)
+            - COMPOUND (for each contract period (daily, monthly, annual, etc.), there is a "new capital" for charging the contracted interest rate. This "new capital" is the sum of the capital and the interest charged in the previous period. Example: in a R\$1,000 loan, with a compound interest rate of 8% p.a., lasting 2 years, the total interest will be R\$80 in the first year. In the second year, the interest will be added to the capital (R\$1,000 + R\$80 = R\$1,080), resulting in interest of R\$86 (8% of R\$1,080))"
+          enum:
+            - SIMPLES # Simple
+            - COMPOSTO # Compound
+          example: SIMPLES # Simple
+        taxPeriodicity:
+          type: string
+          description: |
+            "Rate Periodicity. (See Enum)
+            a.m - per month
+            a.a. - per year"
+          enum:
+            - AM # Per Month
+            - AA # Per Year
+          example: AA # Per Year
+        calculation:
+          type: string
+          description: Calculation basis
+          enum:
+            - 21/252
+            - 30/360
+            - 30/365
+          example: 21/252
+        referentialRateIndexerType:
+          type: string
+          description: |
+            "Types of reference rates or indexers, according to Annex 5: Reference Rate or Indexer (Indx), of Document 3040"
+          enum:
+            - SEM_TIPO_INDEXADOR # No indexer type
+            - PRE_FIXADO # Pre-fixed
+            - POS_FIXADO # Post-fixed
+            - FLUTUANTES # Floating
+            - INDICES_PRECOS # Price indexes
+            - CREDITO_RURAL # Rural credit
+            - OUTROS_INDEXADORES # Other indexers
+          example: PRE_FIXADO # Pre-fixed
+        referentialRateIndexerSubType:
+          type: string
+          description: |
+            "Subtypes of reference rates or indexers, according to Annex 5: Reference Rate or Indexer (Indx), of Document 3040"
+          enum:
+            - SEM_SUB_TIPO_INDEXADOR # No indexer subtype
+            - PRE_FIXADO # Pre-fixed
+            - TR_TBF
+            - TJLP
+            - LIBOR
+            - TLP
+            - OUTRAS_TAXAS_POS_FIXADAS # Other post-fixed rates
+            - CDI
+            - SELIC
+            - OUTRAS_TAXAS_FLUTUANTES # Other floating rates
+            - IGPM
+            - IPCA
+            - IPCC
+            - OUTROS_INDICES_PRECO # Other price indexes
+            - TCR_PRE
+            - TCR_POS
+            - TRFC_PRE
+            - TRFC_POS
+            - OUTROS_INDEXADORES # Other indexers
+          example: TJLP
+        referentialRateIndexerAdditionalInfo:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: Informações adicionais # Additional information
+          description: |
+            Free text field to complement information related to the Reference Rate or Indexer Type.
+
+            [Restriction] Required to complement information related to the Reference Rate or Indexer Type, when the type or subtype OTHER is selected.
+        preFixedRate:
+          type: string
+          format: double
+          maxLength: 9
+          minLength: 8
+          pattern: '^\d{1,2}\.\d{6}$'
+          example: '0.600000'
+          description: |
+            Pre-fixed rate applied to the credit modality contract. E.g., 0.014500.   
+            The field must be filled with 6 decimal places, even if zero-padded (percentage representation, e.g., 0.150000. This value represents 15%. The value 1 represents 100%).
+        postFixedRate:
+          type: string
+          format: double
+          maxLength: 9
+          minLength: 8
+          pattern: '^\d{1,2}\.\d{6}$'
+          example: '0.550000'
+          description: |
+            Post-fixed rate applied to the credit modality contract. E.g., 0.014500.   
+            The field must be filled with 6 decimal places, even if zero-padded (percentage representation, e.g., 0.150000. This value represents 15%. The value 1 represents 100%).
+        additionalInfo:
+          type: string
+          maxLength: 1200
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: Informações adicionais # Additional information
+          description: |
+            Text with additional information about the composition of agreed interest rates. 
+
+            [Restriction] If the institution has the information to share, it must be provided.
+    FinancingsBalloonPayment:
+      type: object
+      description: List containing the due dates and amounts of non-regular installments for the queried credit modality contract.
+      required:
+        - dueDate
+        - amount
+      properties:
+        dueDate:
+          type: string
+          format: date
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          description: 'Due date of the non-regular installment due for the queried credit modality contract, according to RFC-3339 specification. E.g., 2014-03-19'
+          maxLength: 10
+          example: '2020-01-10'
+        amount:
+          $ref: '#/components/schemas/FinancingsBalloonPaymentAmount'
+    FinancingsBalloonPaymentAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: Monetary value of the non-regular installment due
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Monetary value of the non-regular installment due. Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Currency referring to the monetary value, following the ISO-4217 model.'
+          example: BRL
+    FinancingsChargeOverParcel:
+      type: object
+      required:
+        - chargeType
+        - chargeAmount
+      properties:
+        chargeType:
+          $ref: '#/components/schemas/EnumContractFinanceChargeType'
+        chargeAmount:
+          type: string
+          format: double
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '1000.0400'
+          description: Value of the charge payment made outside the installment. Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places.
+        chargeAdditionalInfo:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 140
+          example: Informações adicionais # Additional information
+          description: |
+            Free text field to fill in additional information regarding the charge.
+
+            [Restriction] Required when chargeType is equal to 'OUTROS'.
+    FinancingsContract:
+      type: object
+      description: Set of information related to the identification of financing credit operations
+      required:
+        - contractNumber
+        - ipocCode
+        - productName
+        - productType
+        - productSubType
+        - contractDate
+        - contractAmount
+        - instalmentPeriodicity
+        - CET
+        - amortizationScheduled
+        - interestRates
+        - contractedFees
+        - contractedFinanceCharges
+      properties:
+        contractNumber:
+          type: string
+          maxLength: 100
+          pattern: '^[\w\W]{1,100}$'
+          example: '1324926521496'
+          description: Contract number provided by the contracting institution.
+        ipocCode:
+          type: string
+          maxLength: 67
+          minLength: 22
+          pattern: '^[\w\W]{22,67}$'
+          description: |
+            "Standardized contract number - IPOC (Standardized Identification of Credit Operation). According to DOC 3040, composed of:
+            - **Institution's CNPJ:** initial 8 (eight) positions;
+            - **Operation modality:** 4 (four) positions;
+            - **Client type:** 1 (one) position (1 = natural person - CPF, 2 = legal entity – CNPJ, 3 = physical person abroad, 4 = legal entity abroad, 5 = natural person without CPF, and 6 = legal entity without CNPJ);
+            - **Client code:** The number of positions varies according to the client type:
+              1. For natural person clients with CPF (client type = 1), inform the 11 (eleven) positions of the CPF;
+              2. For legal entity clients with CNPJ (client type = 2), inform the initial 8 (eight) positions of the CNPJ;
+              3. For other clients (client types 3, 4, 5, and 6), inform 14 (fourteen) positions with leading zeros if the identification has a smaller size;
+            - **Contract code:** 1 (one) up to 40 (forty) positions, without character padding."
+          example: '92792126019929279212650822221989319252576'
+        productName:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: Crédito Pessoal Consignado # Payroll Deductible Personal Credit
+          description: |
+            Denomination/Identification of the Credit Operation Modality name disclosed to the client
+        productType:
+          $ref: '#/components/schemas/EnumProductType'
+        productSubType:
+          $ref: '#/components/schemas/EnumProductSubType'
+        contractDate:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2018-01-05'
+          description: Credit operation contract date. RFC-3339 specification
+        disbursementDates:
+          type: array
+          minItems: 1
+          description: |
+            List containing the Disbursement Dates of the contracted amount.
+          items:
+            type: string
+            format: date
+            maxLength: 10
+            pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+            example: '2018-01-15'
+            description: |
+              Disbursement Date of the contracted amount. RFC-3339 specification.
+              In case of a resource release made on D0 but with a retroactive reference made on D-1, the correct accounting date would be D-1.
+        settlementDate:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2018-01-15'
+          description: |
+            Operation settlement date.
+        contractAmount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Contracted operation value. Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places. In cases where this explicit value is not in the product contract, send as 0.00.
+        currency:
+          type: string
+          pattern: '^(\w{3}){1}$'
+          maxLength: 3
+          description: |
+            Currency referring to the warranty value, according to ISO-4217 model. E.g., 'BRL'
+            All reported monetary values are represented in Brazil's current currency
+          example: BRL
+        dueDate:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2028-01-15'
+          description: |
+            Operation Final Due Date. RFC-3339 specification.   
+        instalmentPeriodicity:
+          type: string
+          description: |
+            "Information related to the regular installment periodicity. (See Enum)
+            no regular periodicity, weekly, bi-weekly, monthly, bi-monthly, quarterly, semi-annually, annually"
+          enum:
+            - SEM_PERIODICIDADE_REGULAR # No regular periodicity
+            - SEMANAL # Weekly
+            - QUINZENAL # Bi-weekly
+            - MENSAL # Monthly
+            - BIMESTRAL # Bi-monthly
+            - TRIMESTRAL # Quarterly
+            - SEMESTRAL # Semi-annually
+            - ANUAL # Annually
+            - OUTROS # Others
+          example: SEMANAL # Weekly
+        instalmentPeriodicityAdditionalInfo:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 50
+          example: Informações adicionais sobre periodicidade # Additional information about periodicity
+          description: |
+            Field to complement information related to regular payment periodicity. 
+
+            [Restriction] Required when the instalmentPeriodicity field is equal to OUTROS.
+        firstInstalmentDueDate:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2018-02-15'
+          description: |
+            First principal installment due date.
+        CET:
+          type: string
+          format: double
+          maxLength: 13
+          minLength: 8
+          pattern: '^\d{1,6}\.\d{6}$'
+          example: '0.290000'
+          description: |
+            CET – Total Effective Cost must be expressed as an annual percentage rate and includes all charges and expenses incident to credit operations (interest rate, but also fees, taxes, insurance, and other expenses charged).
+
+            The field must be filled with 6 decimal places, even if zero-padded (percentage representation, e.g., 0.150000.
+            This value represents 15%. The value 1 represents 100%).  
+
+            For the PF public (natural person), the field is mandatory for contracts signed from 2008 onwards, according to CMN Resolution 3.517. For the PJ public (legal entity), the field is mandatory for contracts signed from 2011 onwards, according to CMN Resolution 3.909. Exceptionally in cases of rural credit operations, sending the CET field will be mandatory from 2019 onwards, according to CMN Resolution 4.699. The field may be filled with 0.00 in scenarios where the institution does not have the CET (Total Effective Cost) information only for the exceptions listed below:
+            - In contracts prior to 2008 (for the PF public);
+            - In contracts prior to 2011 (for the PJ public);
+            - In contracts prior to 2019 for rural credit operations (both PF and PJ publics);
+            - Medium or large PJ public.
+        amortizationScheduled:
+          type: string
+          description: |
+            Amortization system (See Enum):
+            - SAC (Constant Amortization System) - It is one where the amortization value remains the same until the end. Interest charged on the installment does not enter this account.
+            - PRICE (French Amortization System) - Installments are fixed from the beginning to the end of the contract. That is, all installments will have the same value, from the first to the last. In the first payments, the largest part of the installment value corresponds to interest. Over time, the interest rate decreases. As the installment value is fixed, as installments pass, the amortization value increases.
+            - SAM (Mixed Amortization System) - Each installment (payment) is the arithmetic mean of the respective installments in the Price System and the Constant Amortization System (SAC).
+            - WITHOUT AMORTIZATION SYSTEM
+          enum:
+            - SAC
+            - PRICE
+            - SAM
+            - SEM_SISTEMA_AMORTIZACAO # Without amortization system
+            - OUTROS # Others
+          example: SAC
+        amortizationScheduledAdditionalInfo:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 200
+          example: Informações complementares relativa à amortização do tipo 'OUTROS' # Complementary information related to 'OUTROS' type amortization
+          description: |
+            Field to complement information related to amortization.
+
+            [Restriction] Required when the amortizationScheduled field is equal to OUTROS.
+        interestRates:
+          type: array
+          minItems: 0
+          description: |
+            Object containing the set of necessary information to demonstrate the composition of remuneratory interest rates for the Credit Modality.  
+            If the contract does not have interest rates, an empty list should be shared. If the contract has an interest rate with value 0, an object with value 0 should be explicitly shared.
+          items:
+            $ref: '#/components/schemas/FinancingsContractInterestRate'
+        contractedFees:
+          type: array
+          minItems: 0
+          description: |
+            List containing information on fees agreed upon in the contract.
+          items:
+            $ref: '#/components/schemas/FinancingsContractFee'
+        contractedFinanceCharges:
+          type: array
+          minItems: 0
+          description: List containing charges agreed upon in the contract
+          items:
+            $ref: '#/components/schemas/FinancingsFinanceCharge'
+    FinancingsContractFee:
+      type: object
+      description: Object containing the set of necessary information to demonstrate the composition of remuneratory interest rates for the Credit Modality
+      required:
+        - feeName
+        - feeCode
+        - feeChargeType
+        - feeCharge
+      properties:
+        feeName:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: Denomination of the agreed fee
+          example: Excesso em Conta # Account Overdraft/Excess
+        feeCode:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: Identifying acronym of the agreed fee
+          example: EXCESSO_CONTA # Account_Excess
+        feeChargeType:
+          type: string
+          description: Type of charge for the fee agreed upon in the contract.
+          enum:
+            - UNICA # Single
+            - POR_PARCELA # Per Installment
+          example: UNICA # Single
+        feeCharge:
+          type: string
+          description: |
+            "Form of charge related to the fee agreed upon in the contract. (See Enum)
+            - Minimum
+            - Maximum
+            - Fixed
+            - Percentage"
+          enum:
+            - MINIMO # Minimum
+            - MAXIMO # Maximum
+            - FIXO # Fixed
+            - PERCENTUAL # Percentage
+          example: MINIMO # Minimum
+        feeAmount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: |
+            Monetary value of the fee agreed upon in the contract. 
+
+            [Restriction] Required when the charge form is different from Percentage.
+        feeRate:
+          type: string
+          format: double
+          maxLength: 8
+          minLength: 8
+          pattern: '^[01]\.\d{6}$'
+          description: |
+            It is the fee value as a percentage agreed upon in the contract.
+
+            [Restriction] Required when the charge form is Percentage.
+          example: '0.200000'
+    FinancingsFeeOverParcel:
+      type: object
+      required:
+        - feeName
+        - feeCode
+        - feeAmount
+      properties:
+        feeName:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: Reavaliação periódica do bem # Periodic revaluation of the asset
+          description: |
+            Denomination of the agreed fee.
+        feeCode:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: aval_bem
+          description: |
+            Identifying acronym of the agreed fee.  
+        feeAmount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: |
+            Monetary value of the fee agreed upon in the contract.
+
+            Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places.
+    FinancingsFinanceCharge:
+      type: object
+      description: Set of information related to the identification of the credit operation
+      required:
+        - chargeType
+      properties:
+        chargeType:
+          $ref: '#/components/schemas/EnumContractFinanceChargeType'
+        chargeAdditionalInfo:
+          type: string
+          maxLength: 50
+          description: |
+            Field for additional information.
+
+            [Restriction] Required if the 'OUTROS' option is selected for the Type of charge agreed upon in the contract.
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: Informações adicionais sobre encargos. # Additional information about charges.
+        chargeRate:
+          type: string
+          format: double
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
+          description: |
+            Represents the charge value as a percentage agreed upon in the contract.   
+            The field must be filled with 6 decimal places, even if zero-padded (percentage representation, e.g., 0.150000. 
+            This value represents 15%. The value 1 represents 100%).
+          example: '0.071200'
+    FinancingsInstalments:
+      type: object
+      description: Set of information related to the installments / payments of the contracted financing credit operation
+      required:
+        - typeContractRemaining
+        - typeNumberOfInstalments
+        - paidInstalments
+      properties:
+        typeNumberOfInstalments:
+          type: string
+          description: Type of total contract term related to the informed credit modality.
+          enum:
+            - DIA # Day
+            - SEMANA # Week
+            - MES # Month
+            - ANO # Year
+            - SEM_PRAZO_TOTAL # Without total term
+          example: MES # Month
+        totalNumberOfInstalments:
+          type: number
+          example: 130632
+          maximum: 999999
+          description: |
+            Total term according to type (day, week, month, year) related to the informed Credit Modality.
+
+            [Restriction] Must be filled if typeNumberOfInstalments is different from SEM_PRAZO_TOTAL.
+        typeContractRemaining:
+          type: string
+          enum:
+            - DIA # Day
+            - SEMANA # Week
+            - MES # Month
+            - ANO # Year
+            - SEM_PRAZO_REMANESCENTE # Without remaining term
+          description: |
+            Type of remaining contract term related to the informed credit modality.
+        contractRemainingNumber:
+          type: number
+          maximum: 999999
+          description: |
+            Remaining term according to type (day, week, month, year) related to the informed Credit Modality.
+
+            [Restriction] Required for modalities that have installments.
+          example: 14600
+        paidInstalments:
+          type: number
+          description: 'Number of paid installments. (In the case of modalities without installments, the number of installments is zero)'
+          maximum: 999999
+          example: 73
+        dueInstalments:
+          type: number
+          maximum: 999999
+          description: |
+            Number of installments due.
+
+            [Restriction] Required for modalities that have installments.
+          example: 57
+        pastDueInstalments:
+          type: number
+          maximum: 999999
+          description: |
+            Number of overdue installments.
+
+            [Restriction] Required for modalities that have installments.
+          example: 73
+        balloonPayments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancingsBalloonPayment'
+          minItems: 1
+          description: List containing the due dates and amounts of non-regular installments for the queried credit modality contract
+    FinancingsListContract:
+      type: object
+      description: Set of information on financing contracts held by the client with the transmitting institution and for which consent has been provided
+      required:
+        - contractId
+        - brandName
+        - companyCnpj
+        - productType
+        - productSubType
+        - ipocCode
+      properties:
+        contractId:
+          $ref: '#/components/schemas/LegacyId'
+        brandName:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 80
+          example: Organização A # Organization A
+          description: 'Brand name reported by the participant in Open Finance. It is recommended to use, whenever possible, the same brand name assigned in the Customer Friendly Server Name (Authorisation Server) directory field.'
+        companyCnpj:
+          type: string
+          pattern: '^\d{14}$'
+          description: 'Full CNPJ number of the institution responsible for the Registration - the CNPJ corresponds to the registration number in the National Registry of Legal Entities. Only the CNPJ numbers should be included, without masking.'
+          maxLength: 14
+          example: '21128159000166'
+        productType:
+          $ref: '#/components/schemas/EnumProductType'
+        productSubType:
+          $ref: '#/components/schemas/EnumProductSubType'
+        ipocCode:
+          type: string
+          maxLength: 67
+          minLength: 22
+          pattern: '^[\w\W]{22,67}$'
+          example: '92792126019929279212650822221989319252576'
+          description: |
+            Standardized contract number - IPOC (Standardized Identification of Credit Operation). According to DOC 3040, composed of:
+            - **Institution's CNPJ:** initial 8 (eight) positions;
+            - **Operation modality:** 4 (four) positions;
+            - **Client type:** 1 (one) position (1 = natural person - CPF, 2 = legal entity – CNPJ, 3 = physical person abroad, 4 = legal entity abroad, 5 = natural person without CPF, and 6 = legal entity without CNPJ);
+            - **Client code:** The number of positions varies according to the client type:
+              1. For natural person clients with CPF (client type = 1), inform the 11 (eleven) positions of the CPF;
+              2. For legal entity clients with CNPJ (client type = 2), inform the initial 8 (eight) positions of the CNPJ;
+              3. For other clients (client types 3, 4, 5, and 6), inform 14 (fourteen) positions with leading zeros if the identification has a smaller size;
+            - **Contract code:** 1 (one) up to 40 (forty) positions, without character padding.
+    FinancingsOverParcel:
+      type: object
+      description: |
+        Object for fees and charges that were paid outside the installment.
+
+        [Restriction] Information must be sent if it exists.
+      required:
+        - fees
+        - charges
+      properties:
+        fees:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/FinancingsFeeOverParcel'
+          description: 'List of fees that were paid outside the installment, only for separate payments.'
+        charges:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/FinancingsChargeOverParcel'
+          description: List of charges that were paid outside the installment.
+    FinancingsPayments:
+      type: object
+      description: Set of information related to payments made for a depositors' overdraft credit operation
+      required:
+        - contractOutstandingBalance
+        - releases
+      properties:
+        paidInstalments:
+          type: number
+          maximum: 2147483647
+          example: 73
+          description: |
+            Total number of paid installments for the contract related to the informed Credit Modality.
+
+            [Restriction] Required for modalities that have installments.
+        contractOutstandingBalance:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Value needed for the client to settle the debt.
+        releases:
+          type: array
+          minItems: 0
+          description: List of payments made during the period
+          items:
+            $ref: '#/components/schemas/FinancingsReleases'
+    FinancingsReleases:
+      type: object
+      description: List of payments made during the period
+      required:
+        - paymentId
+        - isOverParcelPayment
+        - paidDate
+        - currency
+        - paidAmount
+      properties:
+        paymentId:
+          $ref: '#/components/schemas/LegacyId'
+        isOverParcelPayment:
+          type: boolean
+          example: true
+          description: Identifies if it is an agreed payment (false) or a separate payment (true).
+        instalmentId:
+          $ref: '#/components/schemas/LegacyId'
+        paidDate:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2021-05-21'
+          description: 'Effective payment date referring to the queried credit modality contract, according to RFC-3339 specification. E.g., 2014-03-19'
+        currency:
+          type: string
+          maxLength: 3
+          pattern: '^(\w{3}){1}$'
+          example: BRL
+          description: |
+            Currency referring to the reported monetary value, according to ISO-4217 model. E.g., 'BRL'.
+            All reported monetary values are represented in Brazil's current currency.
+        paidAmount:
+          type: string
+          format: double
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '1000.0400'
+          description: |
+            Payment value referring to the queried credit modality contract.
+            Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places.
+        overParcel:
+          $ref: '#/components/schemas/FinancingsOverParcel'
+    FinancingsWarranties:
+      type: object
+      description: Set of information related to the identification of the financing credit operation.
+      required:
+        - currency
+        - warrantyType
+        - warrantySubType
+        - warrantyAmount
+      properties:
+        currency:
+          type: string
+          pattern: '^(\w{3}){1}$'
+          maxLength: 3
+          description: 'Currency referring to the warranty value, according to ISO-4217 model. E.g., ''BRL''. All reported monetary values are represented in Brazil''s current currency'
+          example: BRL
+        warrantyType:
+          type: string
+          description: 'Denomination/Identification of the warranty type that guarantees the contracted Credit Operation Modality (Doc 3040, Annex 12)'
+          enum:
+            - CESSAO_DIREITOS_CREDITORIOS # Assignment of Credit Rights
+            - CAUCAO # Pledge
+            - PENHOR # Pledge
+            - ALIENACAO_FIDUCIARIA # Fiduciary Alienation
+            - HIPOTECA # Mortgage
+            - OPERACOES_GARANTIDAS_PELO_GOVERNO # Government Guaranteed Operations
+            - OUTRAS_GARANTIAS_NAO_FIDEJUSSORIAS # Other Non-Fiduciary Warranties
+            - SEGUROS_ASSEMELHADOS # Similar Insurance
+            - GARANTIA_FIDEJUSSORIA # Fiduciary Warranty
+            - BENS_ARRENDADOS # Leased Assets
+            - GARANTIAS_INTERNACIONAIS # International Warranties
+            - OPERACOES_GARANTIDAS_OUTRAS_ENTIDADES # Operations Guaranteed by Other Entities
+            - ACORDOS_COMPENSACAO # Compensation Agreements
+          example: CESSAO_DIREITOS_CREDITORIOS # Assignment of Credit Rights
+        warrantySubType:
+          type: string
+          description: |
+            Denomination/Identification of the warranty subtype that guarantees the contracted Credit Operation Modality (Doc 3040, Annex 12).
+          enum:
+            - ACOES_DEBENTURES # Shares Debentures
+            - ACORDOS_COMPENSACAO_LIQUIDACAO_OBRICOES # Compensation Agreements Obligations Liquidation
+            - APLICACOES_FINANCEIRAS_RENDA_FIXA # Financial Investments Fixed Income
+            - APLICACOES_FINANCEIRAS_RENDA_VARIAVEL # Financial Investments Variable Income
+            - APOLICES_CREDITO_EXPORTACAO # Export Credit Policies
+            - CCR_CONVENIO_CREDITOS_RECIPROCOS # CCR Reciprocal Credits Agreement
+            - CHEQUES # Checks
+            - CIVIL # Civil
+            - DIREITOS_SOBRE_ALUGUEIS # Rights over Rents
+            - DEPOSITOS_A_VISTA_A_PRAZO_POUPANCA_OURO_TITULOS_PUBLICOS_FEDERAIS_ART_36 # Sight Term Deposits Savings Gold Federal Public Securities Art 36
+            - DEPOSITO_TITULOS_EMITIDOS_ENTIDADES_ART_23 # Deposit Securities Issued Entities Art 23
+            - DUPLICATAS # Trade Bills
+            - EMD_ENTIDADES_MULTILATERAIS_DESENVOLVIMENTO_ART_37 # MDE Multilateral Development Entities Art 37
+            - EQUIPAMENTOS # Equipment
+            - ESTADUAL_OU_DISTRITAL # State or District
+            - FATURA_CARTAO_CREDITO # Credit Card Invoice
+            - FEDERAL # Federal
+            - FCVS_FUNDO_COMPENSACAO_VARIACOES_SALARIAIS # FCVS Wage Variations Compensation Fund
+            - FGI_FUNDO_GARANTIDOR_INVESTIMENTOS # FGI Investments Guarantee Fund
+            - FGPC_FUNDO_GARANTIA_PROMOCAO_COMPETIT # FGPC Competitiveness Promotion Guarantee Fund
+            - FGTS_FUNDO_GARANTIA_TEMPO_SERVICO # FGTS Length of Service Guarantee Fund
+            - FUNDO_GARANTIDOR_AVAL # Guarantee Fund Endorsement
+            - GARANTIA_PRESTADA_FGPC_LEI_9531_ART_37 # Guarantee Provided by FGPC Law 9531 Art 37
+            - GARANTIA_PRESTADA_FUNDOS_QUAISQUER_OUTROS_MECANISMOS_COBERTURA_RISCO_CREDITO_ART_37 # Guarantee Provided by Funds Any Other Credit Risk Coverage Mechanisms Art 37
+            - GARANTIA_PRESTADA_TESOURO_NACIONAL_OU_BACEN_ART_37_BENS_DIREITOS_INTEGRANTES_PATRIMONIO_AFETACAO # Guarantee Provided by National Treasury or BACEN Art 37 Assets Rights Part of Allocated Patrimony
+            - IMOVEIS # Real Estate
+            - IMOVEIS_RESIDENCIAIS # Residential Real Estate
+            - MITIGADORAS # Mitigating
+            - NAO_MITIGADORAS # Non-Mitigating
+            - MUNICIPAL # Municipal
+            - NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO # Promissory Notes Other Credit Rights
+            - OUTRAS # Others
+            - OUTROS # Others
+            - OUTROS_BENS # Other Assets
+            - OUTROS_GRAUS # Other Degrees
+            - OUTROS_IMOVEIS # Other Real Estate
+            - OUTROS_SEGUROS_ASSEMELHADOS # Other Similar Insurance
+            - PESSOA_FISICA # Natural Person
+            - PESSOA_FISICA_EXTERIOR # Natural Person Abroad
+            - PESSOA_JURIDICA # Legal Entity
+            - PESSOA_JURIDICA_EXTERIOR # Legal Entity Abroad
+            - PRIMEIRO_GRAU_BENS_DIREITOS_INTEGRANTES_PATRIMONIO_AFETACAO # First Degree Assets Rights Part of Allocated Patrimony
+            - PRIMEIRO_GRAU_IMOVEIS_RESIDENCIAIS # First Degree Residential Real Estate
+            - PRIMEIRO_GRAU_OUTROS # First Degree Others
+            - PROAGRO
+            - PRODUTOS_AGROPECUARIOS_COM_WARRANT # Agricultural Products with Warrant
+            - PRODUTOS_AGROPECUARIOS_SEM_WARRANT # Agricultural Products without Warrant
+            - SBCE_SOCIEDADE_BRASILEIRA_CREDITO_EXPORTAÇÃO # SBCE Brazilian Export Credit Society
+            - SEGURO_RURAL # Rural Insurance
+            - SEM_SUB_TIPO_GARANTIA # No warranty subtype
+            - TRIBUTOS_RECEITAS_ORCAMENTARIAS # Taxes Budget Revenues
+            - VEICULOS # Vehicles
+            - VEICULOS_AUTOMOTORES # Motor Vehicles
+          example: NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO # Promissory Notes Other Credit Rights
+        warrantyAmount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: |
+            Original warranty value. Expressed in monetary value with a minimum of 2 and a maximum of 4 decimal places.
+
+            [Restriction] For cases where warrantyType is equal to "GARANTIA_FIDEJUSSORIA", the warranty value corresponds to a percentage of the total guaranteed. 
+            Therefore, fiduciary warranty cases for which a monetary value for the warranty cannot be determined should be filled with 0.00.
+    Meta:
+      type: object
+      description: Meta information regarding the requested API.
+      required:
+        - totalRecords
+        - totalPages
+        - requestDateTime
+      properties:
+        totalRecords:
+          type: integer
+          format: int32
+          description: Total number of records in the result
+          example: 1
+        totalPages:
+          type: integer
+          format: int32
+          description: Total number of pages in the result
+          example: 1
+        requestDateTime:
+          description: 'Date and time of the query, according to RFC-3339 specification, UTC format.'
+          type: string
+          maxLength: 20
+          format: date-time
+          example: '2021-05-21T08:30:00Z'
+    LegacyId:
+      description: |
+        Array of key and value with the resource identification key in the source system (legacy), allowing composite keys
+      type: array
+      items:
+        type: object
+        required:
+          - key
+          - value
+        properties:
+          key:
+            description: |
+              Name of the identifier field in the source system
+            type: string
+            example: internalResourceId
+          value:
+            description: |
+              Value of the identifier field in the source system
+            type: string
+            example: '1234'
+        additionalProperties: false
+      minItems: 1
+      maxItems: 10
+    PaginationKey:
+      description: |
+        Recall identifier, used to avoid counting endpoint calls during pagination.
+      type: string
+      maxLength: 2048
+      pattern: '[\w\W\s]*'
+    Page:
+      description: |
+        Number of the page being requested (the first page value is 1).
+      type: integer
+      default: 1
+      minimum: 1
+      maximum: 2147483647
+      format: int32
+    PageSize:
+      description: |
+        Total number of records per page.
+      type: integer
+      default: 25
+      minimum: 1
+      format: int32
+      maximum: 1000
+    ConsentDataSharing:
+      description: |
+        Data sharing consent
+      type: object
+      required:
+        - brandId
+        - creationDateTime
+        - tpp
+        - externalId
+        - loggedUser
+        - permissions
+      properties:
+        authExtraData:
+          type: array
+          description: |
+            Array of key-value pairs with additional data from the authorizer.
+            These data can be used as resource filters.
+          items:
+            type: object
+            required:
+              - key
+              - value
+            properties:
+              key:
+                type: string
+                example: agencia
+              value:
+                type: string
+                example: '0011'
+        consentOwner:
+          deprecated: true
+          type: array
+          description: |
+            [Deprecated] Array of key-value pairs with identification data related to the consent owner.
+          items:
+            type: object
+            required:
+              - key
+              - value
+            properties:
+              key:
+                type: string
+                example: agencia
+              value:
+                type: string
+                example: '0011'
+        brandId:
+          type: string
+          description: |
+            Identifier of the brand reported by the Open Finance participant
+          example: cbanco
+          minLength: 1
+          maxLength: 50
+        creationDateTime:
+          description: |
+            Date and time when the consent was created.
+            A string with date and time according to RFC-3339 specification, always using UTC timezone (UTC time format).
+          type: string
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$ '
+          example: '2021-05-21T08:30:00Z'
+          maxLength: 20
+        tpp:
+          type: object
+          description: |
+            Details of the TPP (Third Party Provider) that requested the consent
+          additionalProperties: false
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              description: |
+                Name of the TPP that requested the consent
+              example: GuiaBolsa
+              maxLength: 100
+        externalId:
+          type: string
+          description: |
+            Consent identifier used outside the Opus Open Finance platform
+          example: urn:oob-bank:2f710909-4ccd-4998-8679-3d8de00e5ccf
+          maxLength: 100
+        loggedUser:
+          type: object
+          description: |
+            User (natural person) who is logged into the Data Transmitting institution.
+          additionalProperties: false
+          required:
+            - document
+          properties:
+            document:
+              type: object
+              description: |
+                Official user identification document.
+              additionalProperties: false
+              required:
+                - identification
+                - rel
+              properties:
+                identification:
+                  type: string
+                  maxLength: 11
+                  description: |
+                    Number of the official user identification document.
+                  example: '11111111111'
+                  pattern: ^\d{11}$
+                rel:
+                  type: string
+                  maxLength: 3
+                  description: |
+                    Type of the official user identification document.
+                  example: CPF
+                  pattern: ^[A-Z]{3}$
+        businessDocumentType:
+          type: object
+          description: |
+            User (legal entity) who is logged into the Data Transmitting institution.
+            [Restriction] Required field if the user logged into the Data Transmitting institution is a CNPJ (legal entity).
+          additionalProperties: false
+          required:
+            - document
+          properties:
+            document:
+              type: object
+              description: |
+                Official identification document of the legal entity owner.
+              additionalProperties: false
+              required:
+                - identification
+                - rel
+              properties:
+                identification:
+                  type: string
+                  maxLength: 14
+                  description: |
+                    Number of the official identification document of the legal entity owner.
+                  example: '11111111111111'
+                  pattern: ^\d{14}$
+                rel:
+                  type: string
+                  maxLength: 4
+                  description: |
+                    Type of the official identification document of the legal entity owner.
+                  example: CNPJ
+                  pattern: ^[A-Z]{4}$
+        resources:
+          description: |
+            List of resources allowed by the client
+          type: array
+          items:
+            type: object
+            description: |
+              Resources selected by the client
+            required:
+              - type
+              - resourceLegacyId
+            properties:
+              type:
+                description: |
+                  Resource type
+                type: string
+                enum:
+                  - ACCOUNT
+                  - CREDIT_CARD_ACCOUNT
+                  - LOAN
+                  - FINANCING
+                  - UNARRANGED_ACCOUNT_OVERDRAFT
+                  - INVOICE_FINANCING
+                  - PAYMENT
+                  - BANK_FIXED_INCOME
+                  - CREDIT_FIXED_INCOME
+                  - VARIABLE_INCOME
+                  - TREASURE_TITLE
+                  - FUND
+                example: PAYMENT
+              resourceLegacyId:
+                $ref: '#/components/schemas/LegacyId'
+              authorizers:
+                deprecated: true
+                description: |
+                  [Deprecated] List of authorizers for the resource in cases of multiple approval levels.
+                  If the resource is selected, all authorizers must accept the consent to which the resource belongs
+                type: array
+                items:
+                  type: object
+                  required:
+                    - cpf
+                    - name
+                  properties:
+                    cpf:
+                      description: |
+                        Authorizer's CPF
+                      type: string
+                      minLength: 11
+                      maxLength: 11
+                      pattern: ^\d{11}$
+                      example: '11111111111'
+                    name:
+                      description: |
+                        Authorizer's name
+                      type: string
+                      example: Marco Antonio de Brito
+                minItems: 1
+              hasMultipleAuthorisers:
+                deprecated: true
+                type: boolean
+                example: 'false'
+            additionalProperties: false
+          maxItems: 1000
+        expirationDateTime:
+          description: |
+            Permission expiration date and time.
+            Mandatory field, reflects the consent validity limit date.
+            A string with date and time according to RFC-3339 specification, always using UTC timezone (UTC time format).
+          type: string
+          maxLength: 20
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$ '
+          example: '2021-05-21T08:30:00Z'
+        permissions:
+          type: array
+          items:
+            description: |
+              Only for data sharing consents.
+              Specifies the types of API access permissions within the scope of Open Finance Brazil - Phase 2, according to the consent blocks provided by the user and required for access to each API endpoint.
+            type: string
+            enum:
+              - ACCOUNTS_READ
+              - ACCOUNTS_BALANCES_READ
+              - ACCOUNTS_TRANSACTIONS_READ
+              - ACCOUNTS_OVERDRAFT_LIMITS_READ
+              - CREDIT_CARDS_ACCOUNTS_READ
+              - CREDIT_CARDS_ACCOUNTS_BILLS_READ
+              - CREDIT_CARDS_ACCOUNTS_BILLS_TRANSACTIONS_READ
+              - CREDIT_CARDS_ACCOUNTS_LIMITS_READ
+              - CREDIT_CARDS_ACCOUNTS_TRANSACTIONS_READ
+              - CUSTOMERS_PERSONAL_IDENTIFICATIONS_READ
+              - CUSTOMERS_PERSONAL_ADITTIONALINFO_READ
+              - CUSTOMERS_BUSINESS_IDENTIFICATIONS_READ
+              - CUSTOMERS_BUSINESS_ADITTIONALINFO_READ
+              - FINANCINGS_READ
+              - FINANCINGS_SCHEDULED_INSTALMENTS_READ
+              - FINANCINGS_PAYMENTS_READ
+              - FINANCINGS_WARRANTIES_READ
+              - INVOICE_FINANCINGS_READ
+              - INVOICE_FINANCINGS_SCHEDULED_INSTALMENTS_READ
+              - INVOICE_FINANCINGS_PAYMENTS_READ
+              - INVOICE_FINANCINGS_WARRANTIES_READ
+              - LOANS_READ
+              - LOANS_SCHEDULED_INSTALMENTS_READ
+              - LOANS_PAYMENTS_READ
+              - LOANS_WARRANTIES_READ
+              - UNARRANGED_ACCOUNTS_OVERDRAFT_READ
+              - UNARRANGED_ACCOUNTS_OVERDRAFT_SCHEDULED_INSTALMENTS_READ
+              - UNARRANGED_ACCOUNTS_OVERDRAFT_PAYMENTS_READ
+              - UNARRANGED_ACCOUNTS_OVERDRAFT_WARRANTIES_READ
+              - BANK_FIXED_INCOMES_READ
+              - CREDIT_FIXED_INCOMES_READ
+              - FUNDS_READ
+              - VARIABLE_INCOMES_READ
+              - TREASURE_TITLES_READ
+              - EXCHANGES_READ
+              - RESOURCES_READ
+          minItems: 1
+          maxItems: 30
+          example: ACCOUNTS_READ
+      additionalProperties: false
+    RequestMeta:
+      type: object
+      description: |
+        Object containing data related to the context in which the request was received.
+      required:
+        - correlationId
+        - brandId
+      properties:
+        correlationId:
+          type: string
+          description: |
+            UUID that identifies the correlation ID of the request made.
+            Must be propagated to all calls made between systems and logged whenever possible to facilitate error tracing
+          pattern: ^(localID:)?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          example: localID:97623ed1-4732-4bf2-8d4b-ae7aced5443b
+        brandId:
+          type: string
+          description: |
+            Identifier of the brand reported by the Open Finance participant
+          example: cbanco
+          minLength: 1
+          maxLength: 50
+      additionalProperties: false
+    RequestWithConsentAndRequestMeta:
+      type: object
+      required:
+        - consent
+        - requestMeta
+      properties:
+        consent:
+          $ref: '#/components/schemas/ConsentDataSharing'
+        requestMeta:
+          $ref: '#/components/schemas/RequestMeta'
+    RequestWithConsentAndRequestMetaAndPagination:
+      type: object
+      required:
+        - consent
+        - requestMeta
+      properties:
+        consent:
+          $ref: '#/components/schemas/ConsentDataSharing'
+        requestMeta:
+          $ref: '#/components/schemas/RequestMeta'
+        page:
+          $ref: '#/components/schemas/Page'
+        pageSize:
+          $ref: '#/components/schemas/PageSize'
+        pagination-key:
+          $ref: '#/components/schemas/PaginationKey'
+    NonSelectableResourceDiscoveryResponse:
+      title: Non-Selectable Resource Discovery Response
+      type: object
+      properties:
+        resources:
+          description: |
+            List of resources related to the discovery
+          type: array
+          items:
+            type: object
+            properties:
+              resourceLegacyId:
+                description: |
+                  Array of key and value with the resource identification key in the source system (legacy), allowing composite keys
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      description: |
+                        Name of the identifier field in the source system
+                      type: string
+                    value:
+                      description: |
+                        Value of the identifier field in the source system
+                      type: string
+                  required:
+                    - key
+              validUntil:
+                description: |
+                  Indicates the date until which the resource will be available.
+                type: string
+                format: date
+                example: '2025-05-21'
+              status:
+                description: |
+                  Indicates the current status of the resource
+                type: string
+                default: AVAILABLE
+                enum:
+                  - AVAILABLE
+                  - PENDING_AUTHORISATION
+                  - UNAVAILABLE
+                  - TEMPORARILY_UNAVAILABLE
+              authorizers:
+                description: |
+                  List of authorizers for the resource in cases of multiple approval levels.
+                  If the resource is selected, all authorizers must accept the consent to which the resource belongs
+                type: array
+                items:
+                  type: object
+                  required:
+                    - cpf
+                    - name
+                  properties:
+                    cpf:
+                      description: |
+                        Authorizer's CPF
+                      type: string
+                      minLength: 11
+                      maxLength: 11
+                      pattern: ^\d{11}$
+                    name:
+                      description: |
+                        Authorizer's name
+                      type: string
+                minItems: 1
+            required:
+              - resourceLegacyId
+              - validUntil
+      required:
+        - resources
+    RequestWithConsentAndRequestMetaAndPaginationAndContractId:
+      type: object
+      required:
+        - consent
+        - requestMeta
+        - contractId
+      properties:
+        consent:
+          $ref: '#/components/schemas/ConsentDataSharing'
+        requestMeta:
+          $ref: '#/components/schemas/RequestMeta'
+        contractId:
+          $ref: '#/components/schemas/LegacyId'
+        page:
+          $ref: '#/components/schemas/Page'
+        pageSize:
+          $ref: '#/components/schemas/PageSize'
+        pagination-key:
+          $ref: '#/components/schemas/PaginationKey'
+    RequestWithConsentAndRequestMetaAndContractId:
+      type: object
+      required:
+        - consent
+        - requestMeta
+        - contractId
+      properties:
+        consent:
+          $ref: '#/components/schemas/ConsentDataSharing'
+        requestMeta:
+          $ref: '#/components/schemas/RequestMeta'
+        contractId:
+          $ref: '#/components/schemas/LegacyId'
+  responses:
+    OKResponseFinancingsContractList:
+      description: List of contracts successfully obtained.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseFinancingsContractList'
+    OKResponseFinancingsContract:
+      description: Financing contract data identified by contractId
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseFinancingsContract'
+    OKResponseFinancingsWarranties:
+      description: List of warranties linked to the financing contract identified by contractId
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseFinancingsWarranties'
+    OKResponseFinancingsInstalments:
+      description: Financing contract installment schedule data identified by contractId
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseFinancingsInstalments'
+    OKResponseFinancingsPayments:
+      description: Financing contract payment data identified by contractId
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseFinancingsPayments'
+    BadRequest:
+      description: 'The request was malformed, omitting mandatory attributes, either in the payload or through URL attributes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    Forbidden:
+      description: The token has incorrect scope or a security policy was violated
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    InternalServerError:
+      description: An error occurred in the API gateway or microservice
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    GatewayTimeout:
+      description: GATEWAY TIMEOUT - The request was not fulfilled within the established time limit
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    MethodNotAllowed:
+      description: The consumer attempted to access the resource with an unsupported method
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    Locked:
+      description: Locked
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    NotAcceptable:
+      description: The request contained an Accept header different from the allowed media types or a character set different from UTF-8
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    NotFound:
+      description: The requested resource does not exist or has not been implemented
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    TooManyRequests:
+      description: 'The operation was refused because too many requests were made within a certain period or the global concurrent request limit was reached'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    Unauthorized:
+      description: Missing/invalid authentication header or invalid token
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    UnprocessableEntity:
+      description: 'The request syntax is correct, but the instructions present could not be processed.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    Default:
+      description: Unexpected error.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    SiteIsOverloaded:
+      description: 'The site is overloaded and the operation was refused because the global maximum TPS limit was reached at this time.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
+    OKResponseFinancingDiscovery:
+      description: List of resources representing the financing type credit operations contracts entered into by the client successfully obtained.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NonSelectableResourceDiscoveryResponse'

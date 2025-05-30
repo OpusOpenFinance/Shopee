@@ -7,7 +7,7 @@ lang: "en"
 alternate_lang: "/docs/pt-br/Open-Finance/Plataforma-OpusOpenFinance/apis/Câmbio/"
 ---
 
-# Foreign Exchange Operations
+# Foreign Exchange API
 
 The *integration layer* API that returns information on *Foreign Exchange* operations conducted by transmitting institutions for their clients, including data such as contracted operation details, operation value in both local and foreign currencies, operation classification, delivery method, VET, and, when applicable, value to be settled. Changes to the operation will also be shared, if any, with the modified information.
 

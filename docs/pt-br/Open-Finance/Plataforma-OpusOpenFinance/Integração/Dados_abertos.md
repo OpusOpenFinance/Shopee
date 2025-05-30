@@ -7,7 +7,7 @@ lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Plataforma-OpusOpenFinance/Integração/Dados_abertos/"
 ---
 
-# Introdução
+# Dados Abertos
 
 O perfil de dados abertos corresponde aos dados públicos que as instituições participantes do Open Finance devem divulgar ao ecossistema. Para saber mais informações sobre o perfil de dados abertos, [veja aqui][Perfis-Open-Finance-Brasil].
 O perfil de dados abertos é exigido para todos os participantes do ecossistema, e os dados devem ser acessíveis através de APIs. A Plataforma Opus Open Finance implementa a totalidade dessas APIs.

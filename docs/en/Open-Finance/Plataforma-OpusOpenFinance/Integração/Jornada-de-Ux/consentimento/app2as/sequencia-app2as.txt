@@ -1,11 +1,11 @@
 title APP2AS Loop de comandos
 
-participant "TPP" as tpp
-participant "Device" as device
+participant "ITP" as tpp
+participant "Smartphone" as device
 participant "App Instituição" as app
-participant "BFF-Instituição" as bff
-participant "IDP-Instituição" as idp
-participant "API-AS-OOB" as as
+participant "Retaguarda Instituição" as bff
+participant "IDP Instituição" as idp
+participant "Opus Authorization Server" as as
 
 entryspacing 0.6
 

@@ -1,13 +1,13 @@
 ---
 layout: default
 title: "Plataforma Opus Open Finance"
-nav_order: 2    # Página principal do site. DEVERIA SER 1, trocar quando gerar a versão completa com redirecionamento!!!!
+nav_order: 1    # Página principal do site. DEVERIA SER 1, trocar quando gerar a versão completa com redirecionamento!!!!
 has_children: true
 lang: "pt-br"
 alternate_lang: "/docs/en/index/"
 ---
 
-## Documentação da Plataforma Opus Open Finance
+# Documentação da Plataforma Opus Open Finance
 
 Bem-vindo à documentação da **Plataforma Opus Open Finance**!
 
@@ -19,7 +19,7 @@ Ao mesmo tempo em que oferece cobertura completa das exigências regulatórias p
 
 ---
 
-### Introdução à Plataforma Opus Open Finance
+## Introdução à Plataforma Opus Open Finance
 
 A **Plataforma Opus Open Finance** é uma solução de software projetada para atender integralmente às exigências regulatórias estabelecidas pelo Banco Central do Brasil. Este documento oferece uma visão geral de como nossa plataforma pode ajudar sua instituição financeira a se integrar e operar eficientemente dentro do Open Finance.
 
@@ -32,7 +32,7 @@ A plataforma atua como um *middleware* essencial que permite à sua instituiçã
 
 ---
 
-### Estrutura deste Documento
+## Estrutura deste Documento
 
 Este documento está organizado para fornecer uma visão geral sobre os conceitos envolvidos no Open Finance e sobre os detalhes técnicos necessários para adoção da **Plataforma Opus Open Finance**. Também são abordados os aspectos de implantação para cada perfil de participante do *Open Finance Brasil*. Para um detalhamento técnico, a documentação também contempla diagramas de sequência e a descrição de APIs no padrão *Open API Specification*.
 

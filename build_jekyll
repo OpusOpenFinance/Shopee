@@ -7,5 +7,5 @@
 #
 
 cd docs
-bundle exe jekyll build --baseurl /Documentation --destination $HOME/site_doc_oof/_site --config _config.yml --trace --verbose --watch
+bundle exe jekyll build --baseurl /Documentation --destination $HOME/site_doc_oof/_site _config.yml --trace --verbose
 

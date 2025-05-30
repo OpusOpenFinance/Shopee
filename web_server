@@ -1,2 +1,6 @@
-cd docs
+#!/usr/bin/bash
+
+cd $HOME/site_doc_oof || exit 1
+ln -s _site Documentation
 python3 -m http.server 4000
+rm Documentation

@@ -6,7 +6,7 @@ nav_order: 3
 lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Open-Finance-Brasil/JornadaConsentimento/OFB-JornadaConsentimento/"
 ---
-## Jornada de Consentimento
+# Jornada de Consentimento
 
 No Open Finance, qualquer operação só pode ser realizada - seja ela o compartilhamento de dados ou a efetuação de um pagamento - se houver consentimento aprovado pelo usuário (cliente de uma instituição financeira) que iniciou a jornada. Portanto, sempre é necessário realizar uma *jornada de consentimento* para que o usuário possa autorizar a operação.
 

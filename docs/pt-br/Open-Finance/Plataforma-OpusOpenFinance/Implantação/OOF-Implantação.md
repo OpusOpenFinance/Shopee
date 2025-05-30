@@ -2,13 +2,13 @@
 layout: default
 title: "Implantação da Plataforma"
 parent: "Opus Open Finance"
-nav_order: 7
+nav_order: 3
 has_children: true
 lang: "pt-br"
 alternate_lang: "/docs/en/Open-Finance/Plataforma-OpusOpenFinance/Implantação/OOF-Implantação/"
 ---
 
-## Introdução
+# Implantação da Plataforma
 
 O processo de implantação da **Plataforma Opus Open Finance** segue uma sequência de etapas bem definida que incluem desde a correta configuração dos ambientes de execução necessários até a efetiva entrada em produção. A equipe da Opus acompanha todos os passos da implantação, que serão apresentados abaixo, de maneira a garantir o sucesso de cada etapa.
 
@@ -18,11 +18,11 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-## Roadmap de Implantação
+# Roadmap de Implantação
 
 ![Roadmap](./images/implantação.png)
 
-### 1. **Kickoff**
+## 1. **Kickoff**
 
 - Apresentação do plano de projeto com detalhamento de atividades e cronograma.
 - Definição da equipe necessária para cada etapa do processo.
@@ -30,7 +30,7 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-### 2. **Configuração dos Ambientes**
+## 2. **Configuração dos Ambientes**
 
 - Provisionamento dos ambientes:
   - Desenvolvimento
@@ -41,7 +41,7 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-### 3. **Certificação OpenID**
+## 3. **Certificação OpenID**
 
 - Execução de testes para validação do ambiente de homologação.
 - Preparação das evidências para envio à OpenID ([certificações RP e OP](../../Open-Finance-Brasil/OFB-Certificações.html)).
@@ -50,7 +50,7 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-### 4. **Integração das Telas**
+## 4. **Integração das Telas**
 
 - Construção das telas da [jornada de consentimento](../../Open-Finance-Brasil/JornadaConsentimento/OFB-JornadaConsentimento.html):
   - Para web, aplicativo e handoff (caso necessário).
@@ -60,21 +60,21 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-### 5. **Layer de Integração**
+## 5. **Layer de Integração**
 
 - Integração dos sistemas de retaguarda da instituição ao produto, de acordo com o [perfil de participação da instituição financeira](../../Open-Finance-Brasil/PerfisOFB/OFB-Perfis.html). Tipicamente, [envolve a construção do *layer de integração*](../Integração/OOF-Integração.html) adaptado aos sistemas de retaguarda da instituição.
 - **Nota:** Normalmente, não é necessário adaptar os sistemas de retaguarda em si, mas mapear a forma de extração das informações referentes a cada produto financeiro oferecido pela instituição (no caso do perfil transmissor de dados), ou a forma de realizar pagamentos e consultar o resultado dessas operações (no caso do perfil detentor de conta). A camada de integração funciona justamente como um adaptador entre os formatos internos dos sistemas de retaguarda e aqueles exigidos pelo *Open Finance Brasil*.
 
 ---
 
-### 6. **Migração**
+## 6. **Migração**
 
 - Migração de consentimentos e DCRs para a nova base do produto.
 - Necessária apenas para instituições que já participam do Open Finance com outra solução ou tecnologia própria.
 
 ---
 
-### 7. **Configurações Finais**
+## 7. **Configurações Finais**
 
 - Testes da jornada completa com layer de integração e telas prontas.
 - Execução de testes funcionais.
@@ -82,14 +82,14 @@ Um ponto importante a ressaltar é que as etapas mais trabalhosas do processo de
 
 ---
 
-### 8. **Certificados Digitais**
+## 8. **Certificados Digitais**
 
 - Aquisição dos [certificados digitais](../../Open-Finance-Brasil/OFB-Certificações.html).
 - Cadastro dos certificados no diretório.
 
 ---
 
-### 9. **Go-Live**
+## 9. **Go-Live**
 
 - Início do monitoramento da solução.
 - Envio de relatórios regulatórios.

@@ -21,7 +21,7 @@ The image below outlines how the connector works. When a participating instituti
 
 ## Connector Layer
 
-Typically, a Connector is a route defined in [Apache Camel](xxx) that connects a financial institution’s back-end system endpoint to the platform, performing the payment associated with the received request.
+Typically, a Connector is a route defined in [Apache Camel](https://camel.apache.org) that connects a financial institution’s back-end system endpoint to the platform, performing the payment associated with the received request.
 
 Additionally, connectors can make small transformations to the data passed to comply with the formats of both the Opus platform and the activated back-end system. Finally, connectors can make necessary changes by omitting or adding fields in requests and responses to ensure both sides of the communication are aligned.
 
