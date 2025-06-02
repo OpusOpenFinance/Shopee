@@ -5,7 +5,7 @@ info:
     API de dados cadastrais de clientes da Camada de Integração da Instituição Transmissora com o Opus Open Finance Brasil.
     API que retorna os dados cadastrais de clientes e de seus representantes, incluindo dados de identificação, de qualificação financeira, informações sobre representantes cadastrados e sobre o relacionamento financeiro do cliente com a instituição transmissora dos dados.
     Possui segregação entre pessoa natural e pessoa jurídica.
-  version: 2.1.0-base2.2.1
+  version: 3.0.0-base2.2.1
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -2202,7 +2202,10 @@ components:
               - RESOURCES_READ
           minItems: 1
           maxItems: 30
-          example: ACCOUNTS_READ
+          example:
+            - ACCOUNTS_READ
+            - ACCOUNTS_OVERDRAFT_LIMITS_READ
+            - RESOURCES_READ
       additionalProperties: false
     RequestMeta:
       type: object

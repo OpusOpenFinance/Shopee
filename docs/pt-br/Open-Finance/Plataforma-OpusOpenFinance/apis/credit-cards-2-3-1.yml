@@ -28,7 +28,7 @@ info:
       | OUTROS            | DO                      | Fatura fechada        |
       |-------------------|-------------------------|-----------------------|
       ```
-  version: 2.1.0-base2.3.1
+  version: 3.0.0-base2.3.1
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -1764,7 +1764,10 @@ components:
               - RESOURCES_READ
           minItems: 1
           maxItems: 30
-          example: ACCOUNTS_READ
+          example:
+            - ACCOUNTS_READ
+            - ACCOUNTS_OVERDRAFT_LIMITS_READ
+            - RESOURCES_READ
       additionalProperties: false
     RequestMeta:
       type: object
